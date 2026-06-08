@@ -1,0 +1,2375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Presentation 2025 — Roupen Babian</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0F0B07;
+    --bg-2: #15110B;
+    --card: #1E1A14;
+    --card-2: #2A241C;
+    --ink: #F4ECD8;
+    --ink-soft: #A8A292;
+    --ink-muted: #6B6557;
+    --ink-faint: #44403A;
+    --accent: #E2724E;
+    --green: #A8C99A;
+    --red: #E27478;
+    --line: rgba(244, 236, 216, 0.08);
+    --line-strong: rgba(244, 236, 216, 0.16);
+    --sans: 'Geist', system-ui, sans-serif;
+    --mono: 'Geist Mono', ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: overlay;
+  }
+
+  /* ─── SLIDE BASE ───────────────────────────── */
+  .slide {
+    width: 100vw;
+    height: 100vh;
+    min-height: 700px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    position: relative;
+    padding: 72px 96px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 2;
+  }
+
+  .slide-top {
+    position: absolute;
+    top: 32px;
+    left: 96px;
+    right: 96px;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-muted);
+    letter-spacing: 0.06em;
+  }
+  .slide-foot {
+    position: absolute;
+    bottom: 32px;
+    left: 96px;
+    right: 96px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-faint);
+    letter-spacing: 0.06em;
+  }
+  .slide-foot .rule {
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+    margin: 0 24px;
+  }
+
+  /* Eyebrow — used on most slides */
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 32px;
+  }
+  .eyebrow.muted {
+    color: var(--ink-muted);
+  }
+
+  /* ─── COVER ────────────────────────────────── */
+  .cover {
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding-bottom: 96px;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: radial-gradient(circle at 70% 30%, rgba(226, 114, 78, 0.10), transparent 55%);
+    pointer-events: none;
+  }
+  .cover-tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 56px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .cover-tag .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .cover h1 {
+    font-size: clamp(4rem, 11vw, 10rem);
+    line-height: 0.9;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+  .cover .role {
+    font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+    color: var(--ink-soft);
+    font-weight: 400;
+    max-width: 580px;
+    line-height: 1.5;
+  }
+  .cover-meta-row {
+    position: absolute;
+    bottom: 72px;
+    right: 96px;
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 6px 24px;
+    align-items: baseline;
+  }
+  .cover-meta-row .label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-faint);
+    letter-spacing: 0.08em;
+    text-align: right;
+  }
+  .cover-meta-row .value {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  /* ─── INDEX ─────────────────────────────────── */
+  .index h2 {
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    margin-bottom: 64px;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .index-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .idx-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 1.4fr auto;
+    gap: 40px;
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+    align-items: center;
+  }
+  .idx-row:last-child { border-bottom: 1px solid var(--line); }
+  .idx-row .num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-muted);
+    letter-spacing: 0.06em;
+  }
+  .idx-row .name {
+    font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+    color: var(--ink);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    font-weight: 500;
+  }
+  .idx-row .desc {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .idx-row .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-muted);
+    letter-spacing: 0.08em;
+    padding: 5px 10px;
+    border: 1px solid var(--line-strong);
+    border-radius: 100px;
+  }
+
+  /* ─── PROJECT TITLE ─────────────────────────── */
+  .ptitle {
+    justify-content: flex-end;
+    padding-bottom: 120px;
+  }
+  .ptitle .pseq {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 40px;
+  }
+  .ptitle h2 {
+    font-size: clamp(3.5rem, 9vw, 7.5rem);
+    line-height: 0.95;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin-bottom: 40px;
+    color: var(--ink);
+  }
+  .ptitle .one-liner {
+    font-size: clamp(1.15rem, 1.7vw, 1.4rem);
+    color: var(--ink-soft);
+    max-width: 720px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  /* ─── STATEMENT (Why I chose) ───────────────── */
+  .statement {
+    justify-content: center;
+  }
+  .statement .quote {
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-weight: 500;
+    margin-bottom: 72px;
+    max-width: 1100px;
+  }
+  .statement .detail-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    border-top: 1px solid var(--line-strong);
+    padding-top: 32px;
+    max-width: 1000px;
+  }
+  .statement .detail {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .statement .detail .key {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-muted);
+    letter-spacing: 0.08em;
+  }
+  .statement .detail .val {
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  /* ─── TWO COLUMN ─────────────────────────── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .two-col.flip { grid-template-columns: 1.1fr 1fr; }
+  .text-block h3 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+  .text-block .lead {
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    color: var(--ink-soft);
+    line-height: 1.55;
+    max-width: 520px;
+    margin-bottom: 32px;
+  }
+
+  /* Numbered list */
+  .nlist {
+    list-style: none;
+  }
+  .nlist li {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 16px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .nlist li:last-child { border-bottom: 1px solid var(--line); }
+  .nlist li .n {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-muted);
+    letter-spacing: 0.06em;
+  }
+  .nlist li .t {
+    font-size: 16px;
+    color: var(--ink);
+    line-height: 1.4;
+    font-weight: 400;
+  }
+
+  /* ─── ROLE — Big direct statement ──────────── */
+  .role-slide {
+    justify-content: center;
+  }
+  .role-slide h2 {
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 0.95;
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin-bottom: 48px;
+  }
+  .role-slide .scope {
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 720px;
+    line-height: 1.6;
+  }
+
+  /* ─── BIG LIST (Problems, Highlights) ──────── */
+  .biglist-slide h3 {
+    font-size: clamp(2.75rem, 5.5vw, 4.5rem);
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 56px;
+  }
+  .biglist {
+    list-style: none;
+    max-width: 1100px;
+  }
+  .biglist li {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 32px;
+    padding: 22px 0;
+    border-top: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .biglist li:last-child { border-bottom: 1px solid var(--line); }
+  .biglist li .n {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-muted);
+    letter-spacing: 0.06em;
+  }
+  .biglist li .t {
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    color: var(--ink);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    font-weight: 500;
+  }
+
+  /* ─── PROCESS ──────────────────────────────── */
+  .process-slide h3 {
+    font-size: clamp(2.75rem, 5.5vw, 4.5rem);
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 56px;
+  }
+  .process-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--line-strong);
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .process-step {
+    flex: 1;
+    min-width: 140px;
+    padding: 24px 20px;
+    border-right: 1px solid var(--line);
+    position: relative;
+  }
+  .process-step:last-child { border-right: none; }
+  .process-step .pn {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+  .process-step .pt {
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    color: var(--ink);
+    line-height: 1.2;
+    font-weight: 500;
+  }
+  .process-step.highlight .pn { color: var(--accent); }
+  .process-step.highlight {
+    background: rgba(226, 114, 78, 0.05);
+  }
+
+  .process-slide .note {
+    margin-top: 40px;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    max-width: 800px;
+    line-height: 1.6;
+  }
+
+  /* ─── RESULTS ──────────────────────────────── */
+  .results-slide h3 {
+    font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+    line-height: 1.1;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 56px;
+    max-width: 900px;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .stat-card {
+    padding: 32px 28px;
+    background: var(--bg);
+  }
+  .stat-card .v {
+    font-family: var(--mono);
+    font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 18px;
+  }
+  .stat-card .v.up { color: var(--green); }
+  .stat-card .v.down { color: var(--red); }
+  .stat-card .v .sym {
+    font-size: 0.6em;
+    margin-right: 4px;
+    opacity: 0.7;
+  }
+  .stat-card .l {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-muted);
+    letter-spacing: 0.06em;
+    line-height: 1.5;
+  }
+  .stat-card .l strong {
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+
+  /* ─── HERO STAT ──────────────────────────── */
+  .hero-stat {
+    align-items: center;
+    text-align: center;
+  }
+  .hero-stat h3 {
+    font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+    line-height: 1.4;
+    color: var(--ink-soft);
+    max-width: 720px;
+    margin-bottom: 56px;
+    font-weight: 400;
+  }
+  .hero-stat .mega {
+    font-family: var(--mono);
+    font-size: clamp(7rem, 20vw, 17rem);
+    line-height: 0.85;
+    font-weight: 400;
+    letter-spacing: -0.05em;
+    color: var(--accent);
+    margin-bottom: 32px;
+  }
+  .hero-stat .mega .sym {
+    font-size: 0.5em;
+    vertical-align: 0.5em;
+    margin-right: 0.05em;
+    opacity: 0.7;
+  }
+  .hero-stat .mega-label {
+    font-size: 16px;
+    color: var(--ink-soft);
+  }
+
+  /* ─── HIGHLIGHTS ───────────────────────────── */
+  .highlights-slide {
+    justify-content: center;
+  }
+  .highlights-slide .pull {
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    line-height: 1.2;
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    max-width: 1100px;
+  }
+  .highlights-slide .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 56px;
+  }
+  .highlights-slide .tags .tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    padding: 8px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 100px;
+    color: var(--ink-soft);
+  }
+
+  /* ─── LEARNINGS ────────────────────────────── */
+  .learnings-slide h3 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 56px;
+  }
+  .learn-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .learn-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    min-height: 260px;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .learn-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--line-strong);
+  }
+  .learn-card .lk {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 32px;
+  }
+  .learn-card .ln {
+    font-family: var(--mono);
+    font-size: 32px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 24px;
+    font-weight: 400;
+  }
+  .learn-card .lt {
+    font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+    color: var(--ink);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    flex: 1;
+    font-weight: 500;
+  }
+
+  /* ─── PHONE MOCKUP ─────────────────────────── */
+  .phone {
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 9/19.5;
+    background: #050403;
+    border-radius: 42px;
+    padding: 8px;
+    margin: 0 auto;
+    border: 1.5px solid rgba(255,255,255,0.08);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+  }
+  .phone .screen {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    border-radius: 34px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .phone .notch {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 24px;
+    background: #000;
+    border-radius: 100px;
+    z-index: 10;
+  }
+  .phone .topbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 22px 8px;
+    font-size: 10px;
+    color: var(--ink);
+    font-weight: 500;
+    margin-top: 28px;
+  }
+  .phone .tools {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 18px;
+    font-size: 11px;
+    color: var(--ink);
+  }
+  .phone .tools .icons {
+    display: flex;
+    gap: 14px;
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+  .phone .canvas {
+    flex: 1;
+    margin: 8px;
+    border-radius: 14px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .phone .canvas.linen { background: linear-gradient(135deg, #ECE4D8, #C9BBA6); color: #1a1a1a; }
+
+  .font-area {
+    background: rgba(15,11,7,0.95);
+    padding: 10px;
+    margin: 0 8px 8px;
+    border-radius: 14px;
+  }
+  .font-search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--card-2);
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 10px;
+    color: var(--ink-muted);
+    margin-bottom: 8px;
+  }
+  .font-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .font-card {
+    background: var(--card-2);
+    border-radius: 8px;
+    padding: 10px 8px;
+    font-size: 12px;
+    color: var(--ink);
+    text-align: center;
+    font-weight: 500;
+    position: relative;
+  }
+  .font-card.archivo { font-weight: 700; color: var(--accent); }
+  .font-card.typewriter { font-family: var(--mono); font-size: 10px; }
+  .font-card.barlow { font-weight: 800; }
+  .font-card.charter { font-family: Georgia, serif; }
+  .font-card.futura { letter-spacing: 0.05em; }
+  .font-card.times { font-family: 'Times New Roman', serif; }
+  .font-card .new-badge {
+    position: absolute;
+    bottom: 2px; right: 4px;
+    background: var(--accent);
+    color: white;
+    font-family: var(--mono);
+    font-size: 7px;
+    padding: 1px 4px;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+  }
+  .phone-tabs {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 12px 6px;
+    border-top: 1px solid var(--line);
+    background: rgba(0,0,0,0.5);
+  }
+  .phone-tabs .tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    font-size: 8px;
+    color: var(--ink-muted);
+  }
+  .phone-tabs .tab.active { color: var(--accent); }
+  .phone-tabs .tab .ic {
+    width: 24px; height: 24px;
+    background: var(--card);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    margin-bottom: 2px;
+  }
+  .phone-tabs .tab.active .ic {
+    background: var(--accent);
+    color: white;
+  }
+
+  .color-area {
+    background: rgba(15,11,7,0.95);
+    padding: 10px;
+    margin: 0 8px 8px;
+    border-radius: 14px;
+  }
+  .color-spectrum {
+    height: 22px;
+    background: linear-gradient(90deg, #FF0000, #FFFF00, #00FF00, #00FFFF, #0000FF, #FF00FF, #FF0000);
+    border-radius: 100px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .color-spectrum::after {
+    content: '';
+    position: absolute;
+    top: -3px; bottom: -3px;
+    left: 60%;
+    width: 5px;
+    background: white;
+    border-radius: 100px;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.4);
+  }
+  .color-swatches {
+    display: flex; gap: 7px; overflow-x: auto; margin-bottom: 8px;
+  }
+  .color-sw {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 2px solid transparent;
+  }
+  .color-sw.active { border-color: white; }
+  .color-types {
+    display: flex; justify-content: center; gap: 16px;
+    font-size: 10px;
+    margin-top: 4px;
+  }
+  .color-types span { color: var(--ink-muted); }
+  .color-types .active { color: var(--ink); border-bottom: 1px solid var(--accent); padding-bottom: 2px; }
+
+  /* ─── LAYERSWAP SLIDER ─────────────────────── */
+  .ls-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    user-select: none;
+    border: 1px solid var(--line);
+  }
+  .ls-frame {
+    position: relative;
+    aspect-ratio: 5 / 4;
+    overflow: hidden;
+  }
+  .ls-layer {
+    position: absolute;
+    inset: 0;
+    background: #0A0908;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+  }
+  .ls-layer.after { clip-path: inset(0 0 0 50%); }
+  .ls-chrome {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 14px;
+  }
+  .ls-chrome .d { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.12); }
+  .ls-chrome .u { flex: 1; text-align: center; font-family: var(--mono); font-size: 10px; color: var(--ink-muted); }
+  .ls-old {
+    flex: 1;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 12px;
+  }
+  .ls-new { flex: 1; }
+  .ls-old .ttl, .ls-new .ttl {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .ls-fld {
+    background: var(--card-2);
+    padding: 7px 10px;
+    border-radius: 5px;
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+  }
+  .ls-fld .k {
+    font-family: var(--mono);
+    letter-spacing: 0.06em;
+    color: var(--ink-muted);
+    font-size: 9px;
+  }
+  .ls-fld .v { color: var(--ink); }
+  .ls-cta {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    margin-top: 6px;
+  }
+  .ls-tbox {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 6px;
+  }
+  .ls-tbox .lbl {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--ink-muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .ls-tbox .lbl .bal { letter-spacing: 0; color: var(--ink-soft); }
+  .ls-tbox .mn {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 10px;
+  }
+  .ls-tbox .amt { font-family: var(--mono); font-size: 22px; color: var(--ink); font-weight: 400; }
+  .ls-tbox .usd { font-family: var(--mono); font-size: 10px; color: var(--ink-muted); margin-top: 2px; }
+  .ls-tbox .pill {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 4px 12px 4px 4px;
+    display: flex; align-items: center; gap: 6px;
+    font-size: 11px; color: var(--ink);
+  }
+  .ls-tbox .pill .c {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #627EEA, #5071D6);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 9px; color: white; font-weight: 600;
+  }
+  .ls-tbox .qk { display: flex; gap: 4px; }
+  .ls-tbox .qk .qb {
+    flex: 1;
+    background: rgba(244,236,216,0.04);
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-family: var(--mono); font-size: 9px;
+    padding: 4px; border-radius: 4px;
+    text-align: center;
+  }
+  .ls-swap { text-align: center; color: var(--ink-muted); font-size: 12px; margin: -2px 0; }
+  .ls-final {
+    background: var(--accent);
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 9px;
+    border-radius: 7px;
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+    margin-top: 6px;
+  }
+  .ls-handle {
+    position: absolute;
+    top: 0; bottom: 0; left: 50%;
+    width: 2px;
+    background: var(--ink);
+    transform: translateX(-1px);
+    z-index: 5;
+    box-shadow: 0 0 12px rgba(244,236,216,0.4);
+  }
+  .ls-handle-dot {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 36px; height: 36px;
+    background: var(--ink);
+    border-radius: 50%;
+    color: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 600;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  }
+  .ls-label {
+    position: absolute;
+    top: 16px;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    border-radius: 100px;
+    z-index: 6;
+    backdrop-filter: blur(6px);
+    transition: opacity 0.3s;
+  }
+  .ls-label.before {
+    left: 16px;
+    background: rgba(226,116,120,0.15);
+    color: var(--red);
+    border: 1px solid rgba(226,116,120,0.3);
+  }
+  .ls-label.after {
+    right: 16px;
+    background: rgba(168,201,154,0.15);
+    color: var(--green);
+    border: 1px solid rgba(168,201,154,0.3);
+  }
+
+  /* ─── DS GRID ──────────────────────────────── */
+  .ds-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .ds-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 22px;
+    aspect-ratio: 4/3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .ds-card .ds-top {
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .ds-card .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+  }
+  .ds-card .count {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-soft);
+  }
+  .ds-card .name {
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+  }
+  .ds-card .preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    padding: 16px 0;
+  }
+  .ds-card .preview .swatches { display: flex; gap: 6px; }
+  .ds-card .preview .sw {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+  }
+  .ds-card .preview .btn-pv {
+    background: var(--accent);
+    color: white;
+    padding: 7px 16px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .ds-card .preview .input-pv {
+    width: 70%;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 6px 10px;
+    color: var(--ink-muted);
+    font-size: 11px;
+  }
+  .ds-card .preview .type-pv {
+    text-align: center;
+  }
+  .ds-card .preview .type-pv .aa {
+    font-size: 32px;
+    color: var(--ink);
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .ds-card .preview .icons-pv {
+    display: flex; gap: 12px; color: var(--ink); font-size: 18px;
+  }
+
+  /* ─── WEBINAR CARD ─────────────────────────── */
+  .webinar {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 32px;
+    align-items: center;
+    max-width: 900px;
+    margin-top: 40px;
+  }
+  .webinar .thumb {
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, #2A241C, #1E1A14);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .webinar .thumb .pbadge {
+    background: var(--accent);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+  .webinar .thumb .titlebit {
+    font-size: 13px;
+    color: var(--ink);
+    text-align: center;
+    line-height: 1.3;
+    font-weight: 500;
+  }
+  .webinar .thumb .duration {
+    position: absolute; bottom: 8px; right: 8px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    font-family: var(--mono);
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+  .webinar .info h4 {
+    font-size: 20px;
+    color: var(--ink);
+    margin-bottom: 12px;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+  }
+  .webinar .info .meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* ─── OUTCOME ──────────────────────────────── */
+  .outcome-slide {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+  .outcome-slide .statement {
+    font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    font-weight: 500;
+    max-width: 1000px;
+    margin: 0 auto 56px;
+  }
+  .outcome-slide .pills {
+    display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+  }
+  .outcome-slide .pill {
+    padding: 10px 18px;
+    border: 1px solid var(--line-strong);
+    border-radius: 100px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+    letter-spacing: 0.06em;
+    background: var(--bg-2);
+  }
+  .outcome-slide .pill .gd {
+    color: var(--green);
+    margin-right: 6px;
+  }
+
+  /* ─── CLOSING ──────────────────────────────── */
+  .closing {
+    align-items: center;
+    text-align: center;
+  }
+  .closing h2 {
+    font-size: clamp(5rem, 13vw, 11rem);
+    line-height: 0.95;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    margin-bottom: 64px;
+  }
+  .closing .contact {
+    border-top: 1px solid var(--line-strong);
+    padding-top: 32px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .closing .contact .role {
+    font-size: 17px;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+  }
+  .closing .contact a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line-strong);
+    padding-bottom: 2px;
+    font-family: var(--mono);
+    font-size: 14px;
+    margin: 0 12px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .closing .contact a:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ─── CONTROLS ─────────────────────────────── */
+  .controls {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    background: rgba(15, 11, 7, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--line-strong);
+    border-radius: 100px;
+    padding: 6px 8px 6px 18px;
+  }
+  .controls .counter {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-soft);
+    letter-spacing: 0.06em;
+    margin-right: 8px;
+  }
+  .controls .counter span { color: var(--ink); }
+  .controls button {
+    background: rgba(244, 236, 216, 0.06);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
+  .controls button:hover { background: rgba(244, 236, 216, 0.12); }
+
+  /* slide-in animation */
+  .slide.in .text-block > *,
+  .slide.in .nlist li,
+  .slide.in .biglist li,
+  .slide.in .stat-card,
+  .slide.in .process-step,
+  .slide.in .learn-card,
+  .slide.in .ds-card,
+  .slide.in .idx-row {
+    animation: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  .slide.in .nlist li:nth-child(1),
+  .slide.in .biglist li:nth-child(1),
+  .slide.in .stat-card:nth-child(1),
+  .slide.in .process-step:nth-child(1),
+  .slide.in .learn-card:nth-child(1),
+  .slide.in .ds-card:nth-child(1),
+  .slide.in .idx-row:nth-child(1) { animation-delay: 0.05s; }
+  .slide.in .nlist li:nth-child(2),
+  .slide.in .biglist li:nth-child(2),
+  .slide.in .stat-card:nth-child(2),
+  .slide.in .process-step:nth-child(2),
+  .slide.in .learn-card:nth-child(2),
+  .slide.in .ds-card:nth-child(2),
+  .slide.in .idx-row:nth-child(2) { animation-delay: 0.12s; }
+  .slide.in .nlist li:nth-child(3),
+  .slide.in .biglist li:nth-child(3),
+  .slide.in .stat-card:nth-child(3),
+  .slide.in .process-step:nth-child(3),
+  .slide.in .learn-card:nth-child(3),
+  .slide.in .ds-card:nth-child(3),
+  .slide.in .idx-row:nth-child(3) { animation-delay: 0.19s; }
+  .slide.in .nlist li:nth-child(4),
+  .slide.in .biglist li:nth-child(4),
+  .slide.in .stat-card:nth-child(4),
+  .slide.in .process-step:nth-child(4),
+  .slide.in .ds-card:nth-child(4),
+  .slide.in .idx-row:nth-child(4) { animation-delay: 0.26s; }
+  .slide.in .nlist li:nth-child(5),
+  .slide.in .biglist li:nth-child(5),
+  .slide.in .stat-card:nth-child(5),
+  .slide.in .process-step:nth-child(5),
+  .slide.in .ds-card:nth-child(5) { animation-delay: 0.33s; }
+  .slide.in .stat-card:nth-child(n+6),
+  .slide.in .process-step:nth-child(n+6),
+  .slide.in .ds-card:nth-child(n+6) { animation-delay: 0.40s; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Image-based slider with vertical handle */
+  .img-slider {
+    position: relative;
+    max-width: 540px;
+    margin: 0 auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -15px rgba(0,0,0,0.6), 0 0 0 1px var(--line-strong);
+    user-select: none;
+    cursor: ew-resize;
+  }
+  .img-slider-frame {
+    position: relative;
+    width: 100%;
+  }
+  .img-slider-layer {
+    width: 100%;
+  }
+  .img-slider-layer img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .img-slider-layer.after {
+    position: absolute;
+    inset: 0;
+    clip-path: inset(0 0 0 50%);
+    pointer-events: none;
+    background: #0E1525;
+  }
+  .img-slider-label {
+    position: absolute;
+    top: 16px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    padding: 5px 11px;
+    border-radius: 100px;
+    z-index: 6;
+    transition: opacity 0.2s;
+    pointer-events: none;
+  }
+  .img-slider-label.before {
+    left: 16px;
+    background: rgba(226,116,120,0.15);
+    color: var(--red);
+    border: 1px solid rgba(226,116,120,0.3);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .img-slider-label.after {
+    right: 16px;
+    background: rgba(168,201,154,0.15);
+    color: var(--green);
+    border: 1px solid rgba(168,201,154,0.3);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .img-slider-handle {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: var(--ink);
+    transform: translateX(-1px);
+    z-index: 5;
+    pointer-events: none;
+    box-shadow: 0 0 12px rgba(244,236,216,0.4);
+  }
+  .img-slider-handle-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background: var(--ink);
+    border-radius: 50%;
+    color: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  }
+
+  /* State toggle (Empty / Filled) */
+  .state-toggle {
+    display: inline-flex;
+    background: var(--card);
+    border: 1px solid var(--line-strong);
+    border-radius: 100px;
+    padding: 4px;
+  }
+  .state-toggle button {
+    background: transparent;
+    border: none;
+    color: var(--ink-soft);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    padding: 7px 18px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .state-toggle button:hover {
+    color: var(--ink);
+  }
+  .state-toggle button.active {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  @media (max-width: 1000px) {
+    .slide { padding: 36px 32px; }
+    .slide-top, .slide-foot { left: 32px; right: 32px; }
+    .two-col, .two-col.flip { grid-template-columns: 1fr; gap: 36px; }
+    .ds-grid { grid-template-columns: 1fr 1fr; }
+    .learn-cards { grid-template-columns: 1fr; gap: 12px; }
+    .learn-card { min-height: 140px; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .webinar { grid-template-columns: 1fr; }
+    .process-flow { flex-direction: column; }
+    .process-step { border-right: none; border-bottom: 1px solid var(--line); }
+    .process-step:last-child { border-bottom: none; }
+    .statement .detail-row { grid-template-columns: 1fr; gap: 20px; }
+  }
+
+  /* Visual placeholder slots */
+  .vslot {
+    background: var(--card);
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 22px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .vslot::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px dashed rgba(244, 236, 216, 0.06);
+    border-radius: 8px;
+    pointer-events: none;
+  }
+  .vslot:hover { border-color: rgba(244, 236, 216, 0.22); }
+  .vslot .vtype {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 14px;
+  }
+  .vslot .vlabel {
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 500;
+    line-height: 1.3;
+    margin-bottom: 8px;
+    max-width: 260px;
+  }
+  .vslot .vdesc {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    max-width: 280px;
+  }
+  .vslot-grid { display: grid; gap: 16px; }
+  .vslot-grid.three { grid-template-columns: repeat(3, 1fr); }
+  .vslot-grid.two { grid-template-columns: 1fr 1fr; }
+  .vslot.box { aspect-ratio: 4/3; min-height: 200px; }
+  .vslot.tall { aspect-ratio: 4/5; }
+  .vslot.wide { min-height: 320px; }
+
+  /* Stat callout */
+  .stat-callout {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    padding: 18px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin: 24px 0;
+  }
+  .stat-callout .grp { display: flex; flex-direction: column; gap: 2px; }
+  .stat-callout .lbl {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-muted);
+    letter-spacing: 0.08em;
+  }
+  .stat-callout .grp.after .lbl { color: var(--accent); }
+  .stat-callout .num {
+    font-family: var(--mono);
+    font-size: 28px;
+    color: var(--ink);
+    font-weight: 400;
+    line-height: 1;
+  }
+  .stat-callout .grp.after .num { color: var(--accent); }
+  .stat-callout .unit {
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+  .stat-callout .arrow { color: var(--ink-muted); align-self: center; font-size: 18px; }
+  .stat-callout .meta {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--ink-muted);
+    letter-spacing: 0.08em;
+    align-self: center;
+  }
+
+  /* Solution-slide common layout */
+  .sol-slide .sol-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 40px;
+  }
+  .sol-slide h3 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .sol-slide .sol-copy {
+    font-size: 1rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+</style>
+</head>
+<body>
+
+<!-- 01 COVER -->
+<section class="slide cover">
+  <div class="slide-top"><span>R · B</span><span>Portfolio · 2025</span></div>
+  <div class="cover-tag"><span class="dot"></span>Senior Product Designer · Portfolio Presentation</div>
+  <h1>Roupen Babian</h1>
+  <p class="role">Seven years of designing digital products at every scale — from early-stage startups to platforms used by hundreds of millions.</p>
+  <div class="cover-meta-row">
+    <span class="label">Year</span><span class="value">2025</span>
+    <span class="label">Based in</span><span class="value">Yerevan, Armenia</span>
+    <span class="label">Currently</span><span class="value">Picsart</span>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>01 / 33</span></div>
+</section>
+
+<!-- 02 INDEX -->
+<section class="slide index">
+  <div class="slide-top"><span>Index</span><span>02</span></div>
+  <h2>Four selected projects.</h2>
+  <div class="index-list">
+    <div class="idx-row">
+      <span class="num">01</span>
+      <span class="name">Layerswap's Redesign</span>
+      <span class="desc">Sole-designer redesign of a cross-chain bridge — from research to handoff.</span>
+      <span class="tag">End-to-end</span>
+    </div>
+    <div class="idx-row">
+      <span class="num">02</span>
+      <span class="name">Picsart's Font Chooser</span>
+      <span class="desc">Solo redesign of the text tool — Picsart's top revenue feature.</span>
+      <span class="tag">Solo · Iterated</span>
+    </div>
+    <div class="idx-row">
+      <span class="num">03</span>
+      <span class="name">Picsart's Color Picker Prototype</span>
+      <span class="desc">Complex ProtoPie prototype built outside Figma. Featured in a ProtoPie webinar.</span>
+      <span class="tag">Compact</span>
+    </div>
+    <div class="idx-row">
+      <span class="num">04</span>
+      <span class="name">Picsart's Design System</span>
+      <span class="desc">Component library and editor redesign with senior managers.</span>
+      <span class="tag">Compact</span>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>02 / 33</span></div>
+</section>
+
+<!-- 03 LAYERSWAP TITLE -->
+<section class="slide ptitle">
+  <div class="slide-top"><span>Project 01 · Layerswap</span><span>03</span></div>
+  <div class="pseq">Project 01 of 04</div>
+  <h2>Layerswap's<br>Redesign.</h2>
+  <p class="one-liner">A series of patches on a cross-chain bridge slowly revealed a structural flaw — and turned into a full app redesign.</p>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>03 / 33</span></div>
+</section>
+
+<!-- 04 WHY -->
+<section class="slide statement">
+  <div class="slide-top"><span>Layerswap · Why this project</span><span>04</span></div>
+  <div class="eyebrow">Why I chose this project</div>
+  <p class="quote">Senior judgment is recognizing when a stack of small fixes is one bigger problem.</p>
+  <div class="detail-row">
+    <div class="detail"><span class="key">Ownership</span><span class="val">Sole designer, end-to-end</span></div>
+    <div class="detail"><span class="key">Scope</span><span class="val">Research → IA → UI → Handoff</span></div>
+    <div class="detail"><span class="key">Outcome</span><span class="val">Shipped, live, in production</span></div>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>04 / 33</span></div>
+</section>
+
+<!-- 05 WHAT IS IT -->
+<section class="slide">
+  <div class="slide-top"><span>Layerswap · What is it about</span><span>05</span></div>
+  <div class="two-col">
+    <div class="text-block">
+      <div class="eyebrow">What is it about</div>
+      <h3>A cross-chain bridge.</h3>
+      <p class="lead">Layerswap moves crypto assets between blockchains. The product worked — but the experience was dense, dated, and built assuming every user spoke fluent Web3.</p>
+      <ul class="nlist">
+        <li><span class="n">01</span><span class="t">Too many decisions on one screen</span></li>
+        <li><span class="n">02</span><span class="t">Interface aged out of its users</span></li>
+        <li><span class="n">03</span><span class="t">First-time users had no path</span></li>
+      </ul>
+    </div>
+    <div>
+      <div style="max-width: 460px; margin: 0 auto; border-radius: 18px; overflow: hidden; box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6), 0 0 0 1px var(--line-strong);">
+        <img src="CoverScreen.png" alt="Layerswap bridge interface — send and receive flow" style="display: block; width: 100%; height: auto;" />
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>05 / 33</span></div>
+</section>
+
+<!-- 06 MY ROLE -->
+<section class="slide role-slide">
+  <div class="slide-top"><span>Layerswap · My role</span><span>06</span></div>
+  <div class="eyebrow">My role &amp; contribution</div>
+  <h2>Sole designer.<br>End to end.</h2>
+  <p class="scope">Owned the full design process — research, strategy, IA restructure, UI, prototyping, design system, developer handoff. No design team. No design partner. Just me and the engineers.</p>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>06 / 33</span></div>
+</section>
+
+<!-- 07 PROBLEMS -->
+<section class="slide biglist-slide">
+  <div class="slide-top"><span>Layerswap · Problems</span><span>07</span></div>
+  <div class="eyebrow">Problems</div>
+  <h3>The friction points that kept appearing.</h3>
+  <ul class="biglist">
+    <li><span class="n">01</span><span class="t">Wallet connection friction</span></li>
+    <li><span class="n">02</span><span class="t">Multi-wallet switching was unclear</span></li>
+    <li><span class="n">03</span><span class="t">Cluttered fees view</span></li>
+    <li><span class="n">04</span><span class="t">Disconnected send and receive amounts</span></li>
+    <li><span class="n">05</span><span class="t">Too many clicks per transaction</span></li>
+  </ul>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>07 / 33</span></div>
+</section>
+
+<!-- 08 PROCESS -->
+<section class="slide process-slide">
+  <div class="slide-top"><span>Layerswap · Process</span><span>08</span></div>
+  <div class="eyebrow">Process</div>
+  <h3>From audit to handoff.</h3>
+  <div class="process-flow">
+    <div class="process-step"><div class="pn">01</div><div class="pt">Audit</div></div>
+    <div class="process-step"><div class="pn">02</div><div class="pt">User research</div></div>
+    <div class="process-step highlight"><div class="pn">03</div><div class="pt">Pattern recognition</div></div>
+    <div class="process-step highlight"><div class="pn">04</div><div class="pt">Pitch for scope</div></div>
+    <div class="process-step"><div class="pn">05</div><div class="pt">IA restructure</div></div>
+    <div class="process-step"><div class="pn">06</div><div class="pt">Prototyping</div></div>
+    <div class="process-step"><div class="pn">07</div><div class="pt">Design system</div></div>
+    <div class="process-step"><div class="pn">08</div><div class="pt">Handoff</div></div>
+  </div>
+  <p class="note">The turning point: recognizing that every "small improvement" on the backlog was symptom of one structural problem. I pitched the scope expansion with user evidence — and we shipped a full redesign.</p>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>08 / 33</span></div>
+</section>
+
+<!-- 09 LAYERSWAP · SOLUTION · Form -->
+<section class="slide">
+  <div class="slide-top"><span>Layerswap · Main flow · Form</span><span>09</span></div>
+  <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 64px; align-items: center;">
+    <div class="text-block">
+      <div class="eyebrow">Main flow · 01 of 07</div>
+      <h3>Two boxes replaced four dropdowns.</h3>
+      <p style="font-size: 1rem; color: var(--ink-soft); line-height: 1.55; max-width: 520px; margin-top: 20px;">
+        The old form forced four sequential decisions onto one screen — chain, token, chain, token. The new pattern collapses them into two clear destinations: send and receive. Same task, fewer clicks, less cognitive load.
+      </p>
+      <div class="stat-callout">
+        <div class="grp">
+          <div class="lbl">Before</div>
+          <div class="num">[X]</div>
+          <div class="unit">clicks</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="grp after">
+          <div class="lbl">After</div>
+          <div class="num">[Y]</div>
+          <div class="unit">clicks</div>
+        </div>
+        <div class="meta">For a typical transfer</div>
+      </div>
+      <p style="margin-top: 16px; font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.08em;">→ Drag the handle · toggle the state</p>
+    </div>
+    <div>
+      <!-- State toggle -->
+      <div style="display: flex; justify-content: center; margin-bottom: 24px;">
+        <div class="state-toggle" id="formStateToggle">
+          <button data-state="empty" class="active">Empty</button>
+          <button data-state="filled">Filled</button>
+        </div>
+      </div>
+      <!-- Single slider window with vertical handle -->
+      <div class="img-slider" id="imgSlider">
+        <div class="img-slider-frame">
+          <!-- Before layer (full width, behind) -->
+          <div class="img-slider-layer before">
+            <img class="form-img" data-side="before" data-state="empty" src="Old-Empty.png" alt="Old form — empty" style="display: block;" />
+            <img class="form-img" data-side="before" data-state="filled" src="Old-Filled.png" alt="Old form — filled" style="display: none;" />
+          </div>
+          <!-- After layer (clipped) -->
+          <div class="img-slider-layer after" id="imgSliderAfter">
+            <img class="form-img" data-side="after" data-state="empty" src="New-Empty.png" alt="New form — empty" style="display: block;" />
+            <img class="form-img" data-side="after" data-state="filled" src="New-Filled.png" alt="New form — filled" style="display: none;" />
+          </div>
+          <!-- Labels -->
+          <div class="img-slider-label before">Before</div>
+          <div class="img-slider-label after">After</div>
+          <!-- Vertical handle -->
+          <div class="img-slider-handle" id="imgSliderHandle">
+            <div class="img-slider-handle-dot">⇄</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>09 / 33</span></div>
+</section>
+
+<!-- 10 LAYERSWAP · SOLUTION · Smart inputs -->
+<section class="slide sol-slide">
+  <div class="slide-top"><span>Layerswap · Main flow · Smart inputs</span><span>10</span></div>
+  <div class="eyebrow">Main flow · 02 of 07</div>
+  <h3>Numbers, made manageable.</h3>
+  <p class="sol-copy" style="max-width: 900px; margin-top: 24px; margin-bottom: 40px;">
+    Crypto amounts come with friction — long decimals, abstract values. I designed two related controls. Min/max quick selectors fill the send amount and recalculate the receive side live. Truncation rules tuned by token type keep long numbers readable, with hover-to-reveal full precision and USD shown beside the crypto figure.
+  </p>
+  <div class="vslot-grid two" style="margin-top: auto; margin-bottom: 40px;">
+    <div class="vslot wide">
+      <div class="vtype">Recording · ~6s</div>
+      <div class="vlabel">Min/max quick selectors</div>
+      <div class="vdesc">25 / 50 / 75 / Max buttons firing: field fills, receive side recalculates, USD updates live.</div>
+    </div>
+    <div class="vslot wide">
+      <div class="vtype">Annotated stills</div>
+      <div class="vlabel">Long-number behavior</div>
+      <div class="vdesc">Truncation states by token type, hover-to-reveal full precision, USD pairing beside crypto figure.</div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>10 / 33</span></div>
+</section>
+
+<!-- 11 LAYERSWAP · SOLUTION · Picker UI -->
+<section class="slide sol-slide">
+  <div class="slide-top"><span>Layerswap · Picker · UI</span><span>11</span></div>
+  <div class="eyebrow">Picker · 03 of 07</div>
+  <h3>One picker. Full context.</h3>
+  <p class="sol-copy" style="max-width: 900px; margin-top: 24px; margin-bottom: 40px;">
+    Picking what to send used to be two steps — chain first, then token — with almost no context attached. The new picker collapses both into one row per asset: chain × token, USD value, balance, source wallet, all visible at a glance.
+  </p>
+  <div class="vslot wide" style="margin-top: auto; margin-bottom: 40px; min-height: 380px;">
+    <div class="vtype">Before / After · Wide composition</div>
+    <div class="vlabel">Old picker (two screens) vs. new picker (single row, full context)</div>
+    <div class="vdesc">Stacked or side-by-side comparison showing the old two-step flow next to the new unified row with USD, balance, and source-wallet context.</div>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>11 / 33</span></div>
+</section>
+
+<!-- 12 LAYERSWAP · SOLUTION · Picker system -->
+<section class="slide sol-slide">
+  <div class="slide-top"><span>Layerswap · Picker · System</span><span>12</span></div>
+  <div class="eyebrow">Picker · 04 of 07</div>
+  <h3>Sorting, sizing, search.</h3>
+  <p class="sol-copy" style="max-width: 900px; margin-top: 24px; margin-bottom: 40px;">
+    The picker is more than a UI — it's a small system with rules. Sorting changes by context: balance USD when browsing, relevance when searching, popularity for new users. Sizing adapts to its container, with each element having its own breakpoint and priority. Search matches across symbol, chain name, and partial strings; recent picks surface on focus.
+  </p>
+  <div class="vslot-grid three" style="margin-top: auto; margin-bottom: 40px;">
+    <div class="vslot box">
+      <div class="vtype">Diagram + annotated screens</div>
+      <div class="vlabel">Sorting logic per context</div>
+      <div class="vdesc">Default → balance USD<br>Search → relevance<br>New users → popularity</div>
+    </div>
+    <div class="vslot box">
+      <div class="vtype">Three breakpoints, side-by-side</div>
+      <div class="vlabel">Responsive sizing</div>
+      <div class="vdesc">Desktop full row → modal condensed → mobile prioritized.</div>
+    </div>
+    <div class="vslot box">
+      <div class="vtype">Recording · ~5s</div>
+      <div class="vlabel">Interactive search</div>
+      <div class="vdesc">Typing in the bar, results updating; recent picks on focus.</div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>12 / 33</span></div>
+</section>
+
+<!-- 13 LAYERSWAP · SOLUTION · Wallets -->
+<section class="slide sol-slide">
+  <div class="slide-top"><span>Layerswap · Wallets</span><span>13</span></div>
+  <div class="eyebrow">Wallets · 05 of 07</div>
+  <h3>Built for multi-wallet users.</h3>
+  <p class="sol-copy" style="max-width: 900px; margin-top: 24px; margin-bottom: 40px;">
+    Power users carry multiple wallets — for trading, cold storage, testing. The old experience treated every connection as a fresh auth dance. The new system shows all connected wallets together, supports two-tap switching, and threads context through the picker, where assets group by source wallet so the right one is always one tap away.
+  </p>
+  <div class="vslot-grid two" style="margin-top: auto; margin-bottom: 40px;">
+    <div class="vslot wide">
+      <div class="vtype">Recording · ~6s</div>
+      <div class="vlabel">Multi-wallet connect &amp; switch</div>
+      <div class="vdesc">Connecting a second wallet, then switching between them in two taps.</div>
+    </div>
+    <div class="vslot wide">
+      <div class="vtype">Annotated screen</div>
+      <div class="vlabel">Wallets inside the picker</div>
+      <div class="vdesc">Assets grouped by source wallet; one tap to the right asset.</div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>13 / 33</span></div>
+</section>
+
+<!-- 14 LAYERSWAP · SOLUTION · Awareness -->
+<section class="slide sol-slide">
+  <div class="slide-top"><span>Layerswap · Secondary · Awareness</span><span>14</span></div>
+  <div class="eyebrow">Secondary flows · 06 of 07</div>
+  <h3>Warnings before. Recovery after.</h3>
+  <p class="sol-copy" style="max-width: 900px; margin-top: 24px; margin-bottom: 40px;">
+    Failed transactions feel mysterious in Web3 — users see error codes, not explanations. I designed two layered flows. Slippage controls in the fees panel surface different states based on threshold: a gentle inline note at moderate slippage, a hard warning when settings risk failure. Warnings catch other problems before submission; recovery patterns handle anything that fails mid-flow.
+  </p>
+  <div class="vslot-grid two" style="margin-top: auto; margin-bottom: 40px;">
+    <div class="vslot wide">
+      <div class="vtype">Screen sequence</div>
+      <div class="vlabel">Slippage controls &amp; warnings</div>
+      <div class="vdesc">Fees panel collapsed → expanded controls → warning state at threshold.</div>
+    </div>
+    <div class="vslot wide">
+      <div class="vtype">Flow diagram + screens</div>
+      <div class="vlabel">Errors &amp; recovery</div>
+      <div class="vdesc">Pre-submit warnings (balance, slippage, unsupported pair) + mid-flow recovery patterns.</div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>14 / 33</span></div>
+</section>
+
+<!-- 15 LAYERSWAP · SOLUTION · Menu & History -->
+<section class="slide sol-slide">
+  <div class="slide-top"><span>Layerswap · Secondary · Menu &amp; History</span><span>15</span></div>
+  <div class="eyebrow">Secondary flows · 07 of 07</div>
+  <h3>Wayfinding for activity.</h3>
+  <p class="sol-copy" style="max-width: 900px; margin-top: 24px; margin-bottom: 40px;">
+    Transactions history was buried in the old experience. I gave it a home in the redesigned menu — recent activity, clear status badges, link-outs to block explorers, and retry where applicable. The menu became the user's anchor for everything that happened and is still happening.
+  </p>
+  <div class="vslot-grid two" style="margin-top: auto; margin-bottom: 40px;">
+    <div class="vslot wide">
+      <div class="vtype">Screen</div>
+      <div class="vlabel">The new menu</div>
+      <div class="vdesc">Redesigned navigation with activity preview, status, and account access.</div>
+    </div>
+    <div class="vslot wide">
+      <div class="vtype">Screen</div>
+      <div class="vlabel">Transactions history</div>
+      <div class="vdesc">Status badges, block-explorer links, retry actions where applicable.</div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>15 / 33</span></div>
+</section>
+
+<!-- 10 HIGHLIGHTS -->
+<section class="slide highlights-slide">
+  <div class="slide-top"><span>Layerswap · Highlights</span><span>16</span></div>
+  <div class="eyebrow">Highlights</div>
+  <p class="pull">Pattern recognition that turned a backlog of fixes into a full redesign — with a design system built alongside it.</p>
+  <div class="tags">
+    <span class="tag">Sole designer</span>
+    <span class="tag">End-to-end</span>
+    <span class="tag">IA-first approach</span>
+    <span class="tag">Design system</span>
+    <span class="tag">Scope-expansion judgment</span>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>16 / 33</span></div>
+</section>
+
+<!-- 11 OUTCOME -->
+<section class="slide outcome-slide">
+  <div class="slide-top"><span>Layerswap · Outcome</span><span>17</span></div>
+  <div class="eyebrow">Outcome</div>
+  <p class="statement">Shipped and live — positive community reception, particularly around how much cleaner the new flows feel.</p>
+  <div class="pills">
+    <span class="pill"><span class="gd">●</span>Shipped to production</span>
+    <span class="pill">Positive feedback on X</span>
+    <span class="pill">Full design system delivered</span>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>17 / 33</span></div>
+</section>
+
+<!-- 18 PROJECT 02 · Font Chooser · Title -->
+<section class="slide ptitle">
+  <div class="slide-top"><span>Project 02 · Picsart Font Chooser</span><span>18</span></div>
+  <div class="pseq">Project 02 of 04</div>
+  <h2>Picsart's<br>Font Chooser.</h2>
+  <p class="one-liner">Picsart's number-one revenue feature, redesigned solo across three shipped iterations — ending with a +30.11% revenue lift.</p>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>18 / 33</span></div>
+</section>
+
+<!-- 19 FONT CHOOSER · Context -->
+<section class="slide statement">
+  <div class="slide-top"><span>Font Chooser · Context</span><span>19</span></div>
+  <div class="eyebrow">Context</div>
+  <p class="quote">Picsart's #1 revenue feature, the first large-scope project I owned solo, and the start of a UX pattern that spread across the editor.</p>
+  <div class="detail-row">
+    <div class="detail"><span class="key">Significance</span><span class="val">#1 revenue generator at Picsart</span></div>
+    <div class="detail"><span class="key">My role</span><span class="val">Solo designer at the text team</span></div>
+    <div class="detail"><span class="key">Process</span><span class="val">Competitors → Ideation → Critiques → Prototyping → Testing → Dev</span></div>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>19 / 33</span></div>
+</section>
+
+<!-- 20 FONT CHOOSER · Problems & Solution -->
+<section class="slide">
+  <div class="slide-top"><span>Font Chooser · Problems &amp; Solution</span><span>20</span></div>
+  <div class="two-col flip">
+    <div class="phone">
+      <div class="screen">
+        <div class="notch"></div>
+        <div class="topbar"><span>9:41</span><span>••• 🔋</span></div>
+        <div class="tools">
+          <span>Cancel</span>
+          <div class="icons">↶ ↷ ⌫ ⊕</div>
+          <span style="color: var(--accent); font-weight: 600;">Apply</span>
+        </div>
+        <div class="canvas linen">
+          <div style="position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); color: #1a1a1a; font-weight: 800; font-size: 18px; letter-spacing: -0.02em;">Sale 50%</div>
+        </div>
+    <div class="text-block">
+      <div class="eyebrow">Problems &amp; Solution</div>
+      <h3>The half-screen chooser.</h3>
+      <p style="font-size: 15px; color: var(--ink-soft); line-height: 1.55; margin-bottom: 24px; max-width: 520px;">
+        The old UI buried features users wanted: discoverability of fonts, choose-and-try errors, outdated interface, hidden features. The new pattern: a half-screen chooser, redesigned end-to-end, that became a template for other tools in the editor.
+      </p>
+      <ul class="nlist">
+        <li><span class="n">01</span><span class="t">Half-screen chooser — a new UX pattern</span></li>
+        <li><span class="n">02</span><span class="t">Complete redesign for discoverability</span></li>
+        <li><span class="n">03</span><span class="t">Early dev collaboration — design would live in multiple places</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>20 / 33</span></div>
+</section>
+
+<!-- 21 FONT CHOOSER · Results · Iter 1 + 2 -->
+<section class="slide results-slide">
+  <div class="slide-top"><span>Font Chooser · Results · Iterations 1 &amp; 2</span><span>21</span></div>
+  <div class="eyebrow">Results · Iterations 1 &amp; 2</div>
+  <h3>Engagement up. Premium balance recovered in iteration 2.</h3>
+  <div class="stats">
+    <div class="stat-card">
+      <div class="v up"><span class="sym">↑</span>+2.60%</div>
+      <div class="l">It. 1 · Apply rate<br><strong>Old users</strong></div>
+    </div>
+    <div class="stat-card">
+      <div class="v up"><span class="sym">↑</span>+3.25%</div>
+      <div class="l">It. 1 · Apply rate<br><strong>New users</strong></div>
+    </div>
+    <div class="stat-card">
+      <div class="v down"><span class="sym">↓</span>−7%</div>
+      <div class="l">It. 1 · Premium fonts<br>usage</div>
+    </div>
+    <div class="stat-card">
+      <div class="v up"><span class="sym">↑</span>+0.94%</div>
+      <div class="l">It. 2 · Free users trying<br>premium fonts</div>
+    </div>
+    <div class="stat-card">
+      <div class="v up"><span class="sym">↑</span>+83</div>
+      <div class="l">It. 2 · Subscriptions</div>
+    </div>
+  </div>
+  <p style="margin-top: 40px; font-size: 14px; color: var(--ink-soft); line-height: 1.6; max-width: 900px;">
+    First iteration drove engagement but hurt premium conversion. Second iteration reordered premium fonts to protect the business case — recovering subscriptions while keeping engagement gains.
+  </p>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>21 / 33</span></div>
+</section>
+
+<!-- 22 FONT CHOOSER · 3rd Iteration · Hero -->
+<section class="slide hero-stat">
+  <div class="slide-top"><span>Font Chooser · 3rd Iteration</span><span>22</span></div>
+  <div class="eyebrow">3rd Iteration · Monetization flow with new ordering</div>
+  <h3>The third iteration restructured the monetization flow itself.</h3>
+  <div class="mega"><span class="sym">↑</span>+30.11%</div>
+  <p class="mega-label">Revenue generated from text</p>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>22 / 33</span></div>
+</section>
+
+<!-- 24 TITLE -->
+<section class="slide ptitle">
+  <div class="slide-top"><span>Project 03 · Color Picker · Compact</span><span>23</span></div>
+  <div class="pseq">Project 03 of 04 · Compact</div>
+  <h2>Picsart's<br>Color Picker<br>Prototype.</h2>
+  <p class="one-liner">A complex, fully-interactive prototype built outside Figma — using conditions, variables, and formulas in ProtoPie.</p>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>23 / 33</span></div>
+</section>
+
+<!-- 25 WHY + WHAT -->
+<section class="slide statement">
+  <div class="slide-top"><span>Color Picker · Why &amp; what</span><span>24</span></div>
+  <div class="eyebrow">Why &amp; what</div>
+  <p class="quote">The drawing team needed a complex prototype outside Figma. I built it as a learning leap.</p>
+  <div class="detail-row">
+    <div class="detail"><span class="key">Context</span><span class="val">Drawing team's project</span></div>
+    <div class="detail"><span class="key">My role</span><span class="val">Support designer · ProtoPie prototype</span></div>
+    <div class="detail"><span class="key">Era</span><span class="val">Beginning of my prototyping era</span></div>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>24 / 33</span></div>
+</section>
+
+<!-- 26 PROBLEMS + SOLUTION -->
+<section class="slide">
+  <div class="slide-top"><span>Color Picker · Problems &amp; solution</span><span>25</span></div>
+  <div class="two-col">
+    <div class="text-block">
+      <div class="eyebrow">Problems &amp; solution</div>
+      <h3>Conditions, variables, formulas.</h3>
+      <ul class="nlist">
+        <li><span class="n">01</span><span class="t">Complex relations between components, colors, and user actions</span></li>
+        <li><span class="n">02</span><span class="t">Limits of color interaction in a prototype</span></li>
+        <li><span class="n">03</span><span class="t">Conditional scenarios across many states</span></li>
+      </ul>
+      <p style="margin-top: 24px; font-size: 15px; color: var(--ink-soft); line-height: 1.55;">Solved by stepping outside Figma into ProtoPie — using conditions, variables, and formulas to build a prototype that responded like the real product.</p>
+    </div>
+    <div class="phone">
+      <div class="screen">
+        <div class="notch"></div>
+        <div class="topbar"><span>2:51</span><span>••• 🔋</span></div>
+        <div class="tools">
+          <span>Cancel</span>
+          <div class="icons">↶ ↷ ⌫ ⊕</div>
+          <span style="color: var(--accent); font-weight: 600;">Apply</span>
+        </div>
+        <div class="canvas linen">
+          <div style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); color: #1a1a1a; font-weight: 800; font-size: 18px; letter-spacing: -0.02em;">NEW COLLECTION</div>
+        </div>
+        <div class="color-area">
+          <div class="color-spectrum"></div>
+          <div class="color-swatches">
+            <div class="color-sw" style="background: #FFFFFF;"></div>
+            <div class="color-sw" style="background: conic-gradient(red, yellow, green, blue, magenta, red);"></div>
+            <div class="color-sw active" style="background: #000;"></div>
+            <div class="color-sw" style="background: #6B46C1;"></div>
+            <div class="color-sw" style="background: #4F46E5;"></div>
+            <div class="color-sw" style="background: #06B6D4;"></div>
+            <div class="color-sw" style="background: #84CC16;"></div>
+            <div class="color-sw" style="background: #FACC15;"></div>
+            <div class="color-sw" style="background: #F59E0B;"></div>
+          </div>
+          <div class="color-types">
+            <span class="active">Solid</span>
+            <span>Gradient</span>
+            <span>Texture</span>
+          </div>
+        </div>
+        <div class="phone-tabs">
+          <div class="tab"><div class="ic">+</div></div>
+          <div class="tab"><div class="ic">⌨</div>Type</div>
+          <div class="tab"><div class="ic">Aa</div>Font</div>
+          <div class="tab active"><div class="ic">○</div>Color</div>
+          <div class="tab"><div class="ic">◐</div>Blend</div>
+          <div class="tab"><div class="ic">A+</div>Styles</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>25 / 33</span></div>
+</section>
+
+<!-- 27 HIGHLIGHTS + Webinar -->
+<section class="slide">
+  <div class="slide-top"><span>Color Picker · Highlights</span><span>26</span></div>
+  <div class="eyebrow">Highlights</div>
+  <h3 style="font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.1; font-weight: 600; letter-spacing: -0.025em; margin-bottom: 24px; max-width: 1000px; color: var(--ink);">Out-of-the-box prototyping. Fully interactive. Featured in a ProtoPie webinar.</h3>
+  <div class="webinar">
+    <div class="thumb">
+      <span class="pbadge">ProtoPie · Webinar</span>
+      <span class="titlebit">How Picsart<br>Designers Free<br>Their Ideas</span>
+      <span class="duration">28:44</span>
+    </div>
+    <div class="info">
+      <h4>Picsart's Color Picker Tool Redesign Using Complex Prototyping in ProtoPie</h4>
+      <div class="meta">11 chapters · featuring Roupen Babian &amp; Lilit Mkrtchyan</div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>26 / 33</span></div>
+</section>
+
+<!-- 28 LEARNINGS -->
+<section class="slide learnings-slide">
+  <div class="slide-top"><span>Color Picker · Reflections</span><span>27</span></div>
+  <div class="eyebrow">Reflections</div>
+  <h3>Time pressure produced new craft.</h3>
+  <div class="learn-cards" style="grid-template-columns: 1fr 1fr; max-width: 900px;">
+    <div class="learn-card">
+      <div class="lk">Challenge</div>
+      <div class="ln">01</div>
+      <div class="lt">Limited time and flexibility</div>
+    </div>
+    <div class="learn-card">
+      <div class="lk">Achievement</div>
+      <div class="ln">02</div>
+      <div class="lt">High-fidelity interactive prototyping skills</div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>27 / 33</span></div>
+</section>
+
+<!-- 29 TITLE -->
+<section class="slide ptitle">
+  <div class="slide-top"><span>Project 04 · Design System · Compact</span><span>28</span></div>
+  <div class="pseq">Project 04 of 04 · Compact</div>
+  <h2>Picsart's<br>Design System.</h2>
+  <p class="one-liner">Editor redesign, consistency across platforms, the start of a big change — and the Figma library that made it possible.</p>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>28 / 33</span></div>
+</section>
+
+<!-- 30 WHY -->
+<section class="slide statement">
+  <div class="slide-top"><span>Design System · Why this project</span><span>29</span></div>
+  <div class="eyebrow">Why I chose this project</div>
+  <p class="quote">Trust at this scale means foundational work — components, rules, and documentation that outlive the project.</p>
+  <div class="detail-row">
+    <div class="detail"><span class="key">Significance</span><span class="val">Foundation across platforms</span></div>
+    <div class="detail"><span class="key">Group</span><span class="val">Smaller team with senior managers</span></div>
+    <div class="detail"><span class="key">Trust</span><span class="val">Gained, kept, expanded</span></div>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>29 / 33</span></div>
+</section>
+
+<!-- 31 WHAT + ROLE -->
+<section class="slide role-slide">
+  <div class="slide-top"><span>Design System · What &amp; role</span><span>30</span></div>
+  <div class="eyebrow">What &amp; my role</div>
+  <h2>Components.<br>Library. Rules.</h2>
+  <p class="scope">Editor redesign within the broader design team. Components and library within a smaller group of senior managers. Figma library creation, documentation, and multi-platform coverage.</p>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>30 / 33</span></div>
+</section>
+
+<!-- 32 PROCESS + COMPONENT GRID -->
+<section class="slide">
+  <div class="slide-top"><span>Design System · Process &amp; components</span><span>31</span></div>
+  <div style="display: flex; flex-direction: column; gap: 40px;">
+    <div>
+      <div class="eyebrow">Problems &amp; process</div>
+      <h3 style="font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; font-weight: 600; letter-spacing: -0.025em; margin-bottom: 24px; max-width: 900px; color: var(--ink);">Lack of consistency. Outdated tools. No guidelines.</h3>
+      <p style="font-size: 15px; color: var(--ink-soft); line-height: 1.6; max-width: 900px;">Gather requirements per component from each team → define variants → create UI → define behavior, specs &amp; rules → smart Figma components → interactions where needed → stakeholder review → documentation.</p>
+    </div>
+
+    <div class="ds-grid">
+      <div class="ds-card">
+        <div class="ds-top">
+          <span class="tag">Color</span><span class="count">32 tokens</span>
+        </div>
+        <div class="preview">
+          <div class="swatches">
+            <div class="sw" style="background: var(--accent);"></div>
+            <div class="sw" style="background: var(--green);"></div>
+            <div class="sw" style="background: var(--ink);"></div>
+            <div class="sw" style="background: var(--ink-soft);"></div>
+          </div>
+        </div>
+        <div class="name">Tokens</div>
+      </div>
+      <div class="ds-card">
+        <div class="ds-top">
+          <span class="tag">Button</span><span class="count">12 variants</span>
+        </div>
+        <div class="preview"><div class="btn-pv">Primary</div></div>
+        <div class="name">Button</div>
+      </div>
+      <div class="ds-card">
+        <div class="ds-top">
+          <span class="tag">Input</span><span class="count">8 variants</span>
+        </div>
+        <div class="preview"><div class="input-pv">Label text</div></div>
+        <div class="name">Input</div>
+      </div>
+      <div class="ds-card">
+        <div class="ds-top">
+          <span class="tag">Type</span><span class="count">14 styles</span>
+        </div>
+        <div class="preview"><div class="type-pv"><div class="aa">Aa</div></div></div>
+        <div class="name">Typography</div>
+      </div>
+      <div class="ds-card">
+        <div class="ds-top">
+          <span class="tag">Icon</span><span class="count">200+</span>
+        </div>
+        <div class="preview"><div class="icons-pv"><span>★</span><span>♥</span><span>◐</span><span>▣</span></div></div>
+        <div class="name">Icons</div>
+      </div>
+      <div class="ds-card">
+        <div class="ds-top">
+          <span class="tag">Layout</span><span class="count">8pt grid</span>
+        </div>
+        <div class="preview" style="padding: 0 24px;">
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; width: 100%;">
+            <div style="aspect-ratio: 1; background: var(--card-2); border-radius: 3px;"></div>
+            <div style="aspect-ratio: 1; background: var(--card-2); border-radius: 3px;"></div>
+            <div style="aspect-ratio: 1; background: var(--card-2); border-radius: 3px;"></div>
+            <div style="aspect-ratio: 1; background: var(--card-2); border-radius: 3px;"></div>
+          </div>
+        </div>
+        <div class="name">Grid</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>31 / 33</span></div>
+</section>
+
+<!-- 33 HIGHLIGHTS -->
+<section class="slide highlights-slide">
+  <div class="slide-top"><span>Design System · Highlights</span><span>32</span></div>
+  <div class="eyebrow">Highlights</div>
+  <p class="pull">Mastered Figma at scale. The foundation multiple teams now design against.</p>
+  <div class="tags">
+    <span class="tag">Senior management collaboration</span>
+    <span class="tag">Multi-platform coverage</span>
+    <span class="tag">Documentation</span>
+    <span class="tag">Component-library scale</span>
+    <span class="tag">Smart Figma components</span>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>32 / 33</span></div>
+</section>
+
+<!-- 34 CLOSING -->
+<section class="slide closing">
+  <div class="slide-top"><span>End</span><span>33</span></div>
+  <h2>Thank you.</h2>
+  <div class="contact">
+    <p class="role">Roupen Babian — Senior Product Designer</p>
+    <a href="mailto:rbabeyan@gmail.com">rbabeyan@gmail.com</a>
+    <a href="https://linkedin.com/in/roupenbabian">linkedin.com/in/roupenbabian</a>
+  </div>
+  <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>33 / 33</span></div>
+</section>
+
+<!-- ─── CONTROLS ─────────────────────────────── -->
+<div class="controls">
+  <span class="counter"><span id="cur">01</span> / <span id="tot">34</span></span>
+  <button id="prev" title="Previous (←)">‹</button>
+  <button id="next" title="Next (→)">›</button>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const cur = document.getElementById('cur');
+  const tot = document.getElementById('tot');
+  tot.textContent = String(slides.length).padStart(2, '0');
+
+  let current = 0;
+  function goTo(i) {
+    if (i < 0) i = 0;
+    if (i >= slides.length) i = slides.length - 1;
+    current = i;
+    slides[i].scrollIntoView({ behavior: 'smooth' });
+    cur.textContent = String(i + 1).padStart(2, '0');
+  }
+
+  document.getElementById('prev').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('next').addEventListener('click', () => goTo(current + 1));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT') return;
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); goTo(current - 1); }
+    if (e.key === 'Home') goTo(0);
+    if (e.key === 'End') goTo(slides.length - 1);
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const idx = slides.indexOf(entry.target);
+      if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+        current = idx;
+        cur.textContent = String(idx + 1).padStart(2, '0');
+        entry.target.classList.add('in');
+      }
+    });
+  }, { threshold: [0.5] });
+  slides.forEach(s => io.observe(s));
+
+  // Layerswap slider
+  (function() {
+    const slider = document.getElementById('lsSlider');
+    if (!slider) return;
+    const frame = slider.querySelector('.ls-frame');
+    const handle = document.getElementById('lsHandle');
+    const after = slider.querySelector('.ls-layer.after');
+    const beforeLbl = slider.querySelector('.ls-label.before');
+    const afterLbl = slider.querySelector('.ls-label.after');
+    let dragging = false;
+
+    function setPct(p) {
+      p = Math.max(0, Math.min(100, p));
+      handle.style.left = p + '%';
+      after.style.clipPath = `inset(0 0 0 ${p}%)`;
+      beforeLbl.style.opacity = p < 12 ? 0 : 1;
+      afterLbl.style.opacity = p > 88 ? 0 : 1;
+    }
+    function fromX(x) {
+      const r = frame.getBoundingClientRect();
+      return ((x - r.left) / r.width) * 100;
+    }
+    slider.addEventListener('mousedown', e => { dragging = true; setPct(fromX(e.clientX)); e.preventDefault(); });
+    window.addEventListener('mousemove', e => { if (dragging) setPct(fromX(e.clientX)); });
+    window.addEventListener('mouseup', () => dragging = false);
+    slider.addEventListener('touchstart', e => { dragging = true; setPct(fromX(e.touches[0].clientX)); }, { passive: true });
+    window.addEventListener('touchmove', e => { if (dragging) setPct(fromX(e.touches[0].clientX)); }, { passive: true });
+    window.addEventListener('touchend', () => dragging = false);
+    setPct(50);
+  })();
+
+  // Form state toggle (Empty / Filled on slide 9)
+  (function() {
+    const toggle = document.getElementById('formStateToggle');
+    if (!toggle) return;
+    const buttons = toggle.querySelectorAll('button');
+    const imgs = document.querySelectorAll('.form-img');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const state = btn.dataset.state;
+        buttons.forEach(b => b.classList.toggle('active', b === btn));
+        imgs.forEach(img => {
+          img.style.display = (img.dataset.state === state) ? 'block' : 'none';
+        });
+      });
+    });
+  })();
+
+  // Image slider with vertical handle (slide 9)
+  (function() {
+    const slider = document.getElementById('imgSlider');
+    if (!slider) return;
+    const frame = slider.querySelector('.img-slider-frame');
+    const handle = document.getElementById('imgSliderHandle');
+    const afterLayer = document.getElementById('imgSliderAfter');
+    const beforeLbl = slider.querySelector('.img-slider-label.before');
+    const afterLbl = slider.querySelector('.img-slider-label.after');
+    let dragging = false;
+
+    function setPct(p) {
+      p = Math.max(0, Math.min(100, p));
+      handle.style.left = p + '%';
+      afterLayer.style.clipPath = `inset(0 0 0 ${p}%)`;
+      beforeLbl.style.opacity = p < 12 ? 0 : 1;
+      afterLbl.style.opacity = p > 88 ? 0 : 1;
+    }
+    function fromX(x) {
+      const r = frame.getBoundingClientRect();
+      return ((x - r.left) / r.width) * 100;
+    }
+    slider.addEventListener('mousedown', e => { dragging = true; setPct(fromX(e.clientX)); e.preventDefault(); });
+    window.addEventListener('mousemove', e => { if (dragging) setPct(fromX(e.clientX)); });
+    window.addEventListener('mouseup', () => dragging = false);
+    slider.addEventListener('touchstart', e => { dragging = true; setPct(fromX(e.touches[0].clientX)); }, { passive: true });
+    window.addEventListener('touchmove', e => { if (dragging) setPct(fromX(e.touches[0].clientX)); }, { passive: true });
+    window.addEventListener('touchend', () => dragging = false);
+    setPct(50);
+  })();
+</script>
+
+</body>
+</html>
