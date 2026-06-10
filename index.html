@@ -1553,6 +1553,9 @@
     color: var(--ink);
     width: 30px;
     height: 30px;
+    flex-shrink: 0;        /* never let flex squeeze the circles into ovals */
+    padding: 0;
+    line-height: 1;
     border-radius: 50%;
     cursor: pointer;
     font-size: 14px;
@@ -2130,13 +2133,89 @@
 
   /* ─── LARGE MOBILE (≤768px) ─────────────────── */
   @media (max-width: 768px) {
-    .slide { padding: 32px 24px; min-height: 100svh; }
-    .slide-top, .slide-foot { left: 24px; right: 24px; }
-    .slide-stage { left: 24px; right: 24px; }
-    .cover-meta-row { right: 24px; }
-    .cover h1 { font-size: clamp(2.5rem, 13vw, 5rem); margin-bottom: 24px; }
+    /* ── Readable-scroll model: drop the one-screen "deck" on phones. Slides grow
+       to natural height and flow top-to-bottom at full size (no scale-to-fit). ── */
+    .slide {
+      height: auto !important;        /* beats @supports { height: 100dvh } */
+      min-height: 100svh;
+      overflow: visible;
+      justify-content: flex-start;    /* top-align flowing content */
+      padding: 64px 24px 56px;        /* clear pinned .slide-top/.pseq (top) & .slide-foot (bottom) */
+    }
+    .slide-stage {                    /* rejoin normal flow so the slide can grow */
+      position: static;
+      inset: auto;
+      left: auto; right: auto; top: auto; bottom: auto;
+      overflow: visible;
+      height: auto;
+      display: block;
+    }
+    .slide-stage-inner {              /* defeat the inline transform JS writes */
+      transform: none !important;
+      width: auto;
+      height: auto;
+    }
+    /* Undo the solution-slide flex-fill media model — back to simple block flow */
+    .sol-slide .slide-stage-inner,
+    .sol-slide .slide-stage-inner > .vslot-grid,
+    .sol-slide .vslot-grid > div,
+    .sol-slide .vslot-grid .media-fit { display: block; height: auto; flex: none; }
+    .sol-slide .slide-stage-inner > .vslot-grid { margin-top: 16px; }
+    .sol-slide .vslot-grid .media { max-height: 60vh; width: auto; margin: 0 auto; }
+    /* Single-column fallbacks for grids not already collapsed at this width */
+    .stats { grid-template-columns: 1fr; }
+    .vslot-grid.two { grid-template-columns: 1fr; }
+    .vslot-grid.compare { display: block; }
+    .vslot-grid.compare > div { height: auto; margin-bottom: 32px; }
+    .sol-slide .sol-head { grid-template-columns: 1fr; gap: 24px; }
+    .img-slider { width: min(411px, 100%); }   /* drop the 100vh-based calc term */
+    /* Slide 04's inline-styled grid/section (selector can't beat inline styles) */
+    .m-flow { overflow: visible !important; justify-content: flex-start !important;
+              padding-top: 64px !important; padding-bottom: 56px !important; }
+    .m-stack { grid-template-columns: 1fr !important; gap: 24px !important; }
+    /* Footer divider flows in-line directly under the slide's last component
+       (order:99 pushes it past the content stage) instead of pinning to the
+       bottom of a tall slide — so it always sits right beneath the content. */
+    .slide-foot {
+      position: static;
+      order: 99;
+      left: auto; right: auto; bottom: auto;
+      margin-top: 48px;
+    }
+
+    /* ── Cover, mobile: a proper hero — tag, big name, role, meta card, note ── */
+    .cover { justify-content: center; padding-top: 64px; align-items: flex-start; }
+    .cover::after { width: 100%; opacity: 0.7; }   /* full-width ambient glow on phones */
+    .cover .slide-stage { order: 0; width: 100%; }
+    .cover-tag { font-size: 11px; margin-bottom: 22px; }
+    .cover h1 { font-size: clamp(2.75rem, 15vw, 5rem); line-height: 0.95; margin-bottom: 20px; }
     .cover-bottom { flex-direction: column; gap: 20px; }
-    .cover-meta-row { grid-template-columns: auto auto; }
+    .cover .role { font-size: 16px; line-height: 1.55; max-width: 100%; }
+    .cover-meta-row {
+      order: 2;
+      position: static; right: auto; top: auto;
+      margin: 36px 0 0;
+      grid-template-columns: auto 1fr;
+      column-gap: 18px; row-gap: 11px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      width: 100%;
+    }
+    .cover-meta-row .label { text-align: left; }
+    .cover-meta-row .value { font-size: 13px; }
+    /* Note: soft card instead of a full pill (a pill wraps badly across lines) */
+    .cover-note {
+      order: 3;
+      position: static; transform: none; left: auto; bottom: auto;
+      align-self: stretch; width: 100%;
+      margin: 28px 0 0; padding: 14px 16px;
+      max-width: 100%;
+      border-radius: 14px;
+      align-items: flex-start;
+      text-align: left;
+      line-height: 1.6;
+    }
+    .cover-note .dot { margin-top: 6px; }
     .index h2 { font-size: clamp(1.75rem, 6vw, 2.5rem); margin-bottom: 32px; }
     .idx-row { grid-template-columns: 36px 1fr auto; column-gap: 14px; padding: 20px 0; }
     .idx-row .name { font-size: clamp(1.1rem, 4vw, 1.5rem); }
@@ -2171,11 +2250,11 @@
 
   /* ─── PHONE (≤480px) ────────────────────────── */
   @media (max-width: 480px) {
-    .slide { padding: 28px 20px; }
+    .slide { padding: 56px 20px 48px; }   /* keep clearance for pinned top label/pseq & foot */
     .slide-top, .slide-foot { left: 20px; right: 20px; top: 20px; bottom: 20px; }
     .slide-stage { left: 20px; right: 20px; top: 48px; bottom: 48px; }
     .cover-meta-row { right: 20px; top: 20px; }
-    .cover-tag { margin-bottom: 32px; font-size: 10px; }
+    .cover-tag { margin-bottom: 20px; font-size: 10px; }
     .cover h1 { font-size: clamp(2.25rem, 14vw, 4rem); }
     .cover .role { font-size: 15px; }
     .index h2 { font-size: clamp(1.5rem, 7vw, 2rem); }
@@ -2380,10 +2459,10 @@
 </section>
 
 <!-- 04 WHAT + WHY (stacked) -->
-<section class="slide" style="justify-content: center; padding-top: 56px; padding-bottom: 56px; overflow: hidden;">
+<section class="slide m-flow" style="justify-content: center; padding-top: 56px; padding-bottom: 56px; overflow: hidden;">
 
   <!-- TOP: What is it about -->
-  <div style="display: grid; grid-template-columns: 1fr 0.65fr; gap: 48px; align-items: center; flex-shrink: 0;">
+  <div class="m-stack" style="display: grid; grid-template-columns: 1fr 0.65fr; gap: 48px; align-items: center; flex-shrink: 0;">
     <div>
       <div class="eyebrow" style="margin-bottom: 14px;">What is it about</div>
       <h3 style="font-family: var(--sans); font-size: clamp(1.75rem, 3vw, 2.6rem); line-height: 1.05; font-weight: 600; letter-spacing: -0.025em; color: var(--ink); margin-bottom: 14px;">A cross-chain bridge.</h3>
@@ -3064,6 +3143,9 @@
   tot.textContent = String(slides.length).padStart(2, '0');
   const pad2 = n => String(n).padStart(2, '0');
   const setCur = i => { if (document.activeElement !== cur) cur.value = pad2(i + 1); };
+  // On phones we drop the "deck" model: no scale-to-fit, no scroll snap, no
+  // resize-lock — slides grow to natural height and scroll like a normal page.
+  const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
 
   // Always start on the first slide when the page (re)loads, instead of
   // letting the browser restore a stale scroll position or jump to a #hash.
@@ -3165,12 +3247,15 @@
   }
   function centerSlide(i, smooth) {
     programmatic = true;
-    slides[i].scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'center' });
+    // On mobile slides are taller than the screen — align to the slide's TOP so
+    // next/prev reveal it from the start; on desktop center it in the viewport.
+    slides[i].scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: isMobile() ? 'start' : 'center' });
     clearTimeout(progClear);
     progClear = setTimeout(() => { programmatic = false; }, 700);
   }
   window.addEventListener('scroll', () => {
     if (programmatic) return;
+    if (isMobile()) return;            // plain native scroll on phones — no snap
     clearTimeout(settleTimer);
     settleTimer = setTimeout(() => {
       const i = nearestSlideIndex();
@@ -3209,6 +3294,8 @@
     const stage = slide.querySelector(':scope > .slide-stage');
     if (!stage) return;
     const inner = stage.firstElementChild;
+    // Mobile: clear any inline transform and let the slide flow at natural size.
+    if (isMobile()) { inner.style.transform = ''; return; }
     inner.style.transform = 'none';
     // While a video inside this slide is fullscreen, a scale transform on the
     // ancestor breaks the native Fullscreen API rendering — leave it off.
@@ -3256,6 +3343,10 @@
   // (via `resizing`/`programmatic`) until resizing stops.
   let resizeTimer = null, lockedSlide = 0;
   window.addEventListener('resize', () => {
+    // Mobile: no slide-lock/re-settle (the iOS address bar fires resize and would
+    // yank the page). Just refit — fitAll is a no-op on mobile but clears any
+    // stale desktop transforms when crossing the breakpoint.
+    if (isMobile()) { fitAll(); return; }
     if (!resizing) { resizing = true; lockedSlide = current; }
     programmatic = true;
     fitAll();
