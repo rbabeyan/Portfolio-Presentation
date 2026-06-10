@@ -189,8 +189,8 @@
   }
   .cover-meta-row {
     position: absolute;
-    left: 56px;
-    bottom: 76px;
+    top: 32px;
+    right: 56px;
     z-index: 3;
     display: grid;
     grid-template-columns: auto auto;
@@ -1981,9 +1981,6 @@
     width: 100%;
     aspect-ratio: 16 / 10;
   }
-  /* Cap 2-up tiles so these content-heavy slides fit at full size (no scale-down,
-     which would otherwise shrink width and look like extra left/right padding). */
-  .vslot-grid.two .media { max-height: 34vh; }
   .slide .vslot-grid .media > img,
   .vslot-grid .media > video {
     width: 100%;
@@ -1991,7 +1988,54 @@
     max-width: none;
     max-height: none;
     object-fit: cover;
-    object-position: center;
+    object-position: top center;
+  }
+
+  /* ── Solution slides: media-row behavior ──────────────────────────────
+     Text sits at the TOP — full-width, true size, never scaled (fitStage skips
+     these) → identical side padding on every slide. The media row fills the
+     leftover height below; the media scales to fit it (keeping 16:10, centered),
+     bigger when there's room, smaller when the text grows or window shrinks.
+     Never cropped. */
+  .sol-slide .slide-stage-inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .sol-slide .slide-stage-inner > * { flex: 0 0 auto; }
+  .sol-slide .eyebrow { margin-bottom: 16px; }
+  /* media row = flex (not grid) so it reliably fills the leftover height */
+  .sol-slide .slide-stage-inner > .vslot-grid {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    align-items: stretch;
+    margin: 8px 0 0;
+  }
+  .sol-slide .vslot-grid > div {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .sol-slide .vslot-grid .media-note { flex: 0 0 auto; }
+  .sol-slide .vslot-grid .media-cap { flex: 0 0 auto; margin-top: 12px; }
+  /* scalable area: fills leftover cell height and centers the media */
+  .sol-slide .vslot-grid .media-fit {
+    flex: 1 1 0;
+    min-height: 0;
+    display: grid;
+    place-items: center;
+  }
+  /* media = largest 16:10 that fits the area — centered, never cropped */
+  .sol-slide .vslot-grid .media {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    margin: 0;
   }
 
   /* Comparison grid: a description sits above each tile. Cells are equal height
@@ -2003,10 +2047,13 @@
     flex-direction: column;
     height: 100%;
   }
-  .vslot-grid.compare .media { margin-top: auto; }
+  /* compare media: left-aligned, flush with the bullets above */
+  .sol-slide .vslot-grid.compare .media-fit { place-items: center start; }
+  /* tighter gap to the paragraph above */
+  .sol-slide .slide-stage-inner > .vslot-grid.compare { margin-top: 0; }
   .media-note {
     text-align: left;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
   }
   .media-note-tag {
     display: inline-block;
@@ -2016,7 +2063,7 @@
     text-transform: uppercase;
     padding: 4px 11px;
     border-radius: 100px;
-    margin-bottom: 14px;
+    margin-bottom: 10px;
   }
   .media-note-tag.before {
     color: var(--ink-soft);
@@ -2032,14 +2079,14 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 9px;
+    gap: 5px;
   }
   .media-note li {
     position: relative;
     padding-left: 18px;
     font-size: 13px;
     color: var(--ink-soft);
-    line-height: 1.45;
+    line-height: 1.3;
   }
   .media-note li::before {
     content: '';
@@ -2059,7 +2106,7 @@
     .slide { padding: 40px 36px; }
     .slide-top, .slide-foot { left: 36px; right: 36px; }
     .slide-stage { left: 36px; right: 36px; }
-    .cover-meta-row { left: 36px; }
+    .cover-meta-row { right: 36px; }
     .two-col, .two-col.flip { grid-template-columns: 1fr; gap: 36px; }
     .sol-split { grid-template-columns: 1fr; gap: 36px; }
     .ds-grid { grid-template-columns: 1fr 1fr; }
@@ -2086,7 +2133,7 @@
     .slide { padding: 32px 24px; min-height: 100svh; }
     .slide-top, .slide-foot { left: 24px; right: 24px; }
     .slide-stage { left: 24px; right: 24px; }
-    .cover-meta-row { left: 24px; }
+    .cover-meta-row { right: 24px; }
     .cover h1 { font-size: clamp(2.5rem, 13vw, 5rem); margin-bottom: 24px; }
     .cover-bottom { flex-direction: column; gap: 20px; }
     .cover-meta-row { grid-template-columns: auto auto; }
@@ -2127,7 +2174,7 @@
     .slide { padding: 28px 20px; }
     .slide-top, .slide-foot { left: 20px; right: 20px; top: 20px; bottom: 20px; }
     .slide-stage { left: 20px; right: 20px; top: 48px; bottom: 48px; }
-    .cover-meta-row { left: 20px; bottom: 60px; }
+    .cover-meta-row { right: 20px; top: 20px; }
     .cover-tag { margin-bottom: 32px; font-size: 10px; }
     .cover h1 { font-size: clamp(2.25rem, 14vw, 4rem); }
     .cover .role { font-size: 15px; }
@@ -2340,7 +2387,7 @@
     <div>
       <div class="eyebrow" style="margin-bottom: 14px;">What is it about</div>
       <h3 style="font-family: var(--sans); font-size: clamp(1.75rem, 3vw, 2.6rem); line-height: 1.05; font-weight: 600; letter-spacing: -0.025em; color: var(--ink); margin-bottom: 14px;">A cross-chain bridge.</h3>
-      <p style="font-size: 15px; color: var(--ink-soft); line-height: 1.55; margin-bottom: 16px; max-width: 540px;">Layerswap moves crypto assets between blockchains. The product worked — but the experience was dense, dated, and built assuming every user spoke fluent Web3.</p>
+      <p style="font-size: 15px; color: var(--ink-soft); line-height: 1.55; margin-bottom: 16px; max-width: 540px;">Layerswap moves crypto assets between blockchains. The product worked but the experience was dense, dated, and built assuming every user spoke fluent Web3.</p>
       <ul class="nlist">
         <li style="padding: 10px 0;"><span class="n">01</span><span class="t" style="font-size: 15px;">Too many decisions on one screen</span></li>
         <li style="padding: 10px 0;"><span class="n">02</span><span class="t" style="font-size: 15px;">Interface aged out of its users</span></li>
@@ -2408,7 +2455,7 @@
     <div class="process-step"><div class="pn">07</div><div class="pt">Design system</div></div>
     <div class="process-step"><div class="pn">08</div><div class="pt">Handoff</div></div>
   </div>
-  <p class="note">The turning point: recognizing that every "small improvement" on the backlog was symptom of one structural problem. I pitched the scope expansion — and we shipped a full redesign.</p>
+  <p class="note">The turning point: recognizing that every "small improvement" on the backlog was symptom of one structural problem. I pitched the scope expansion and we shipped a full redesign.</p>
 <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>06 / 32</span></div>
 </section>
 
@@ -2419,7 +2466,7 @@
       <div class="eyebrow">Main page</div>
       <h3>Two boxes replaced eight.</h3>
       <p style="font-size: 1rem; color: var(--ink-soft); line-height: 1.55; max-width: 520px; margin-top: 20px;">
-        The old form forced too many sequential decisions onto one screen — source chain, token, destinationchain, token, address, fees and details. The new pattern collapses them into two clear components: send and receive. Same task, fewer clicks, less cognitive load.
+        The old form forced too many sequential decisions onto one screen source chain, token, destination chain, token, address, fees and details. The new pattern collapses them into two clear components: send and receive. Same task, fewer clicks, less cognitive load.
       </p>
       <div class="stat-callout">
         <div class="grp">
@@ -2476,10 +2523,10 @@
 <section class="slide sol-slide">
   <div class="eyebrow">Main page</div>
   <h3>Numbers, made manageable.</h3>
-  <p class="sol-copy" style="max-width: 900px; margin-top: 24px; margin-bottom: 40px;">
-    Crypto amounts come with friction — long decimals, abstract values. Related controls were added. Min - 50% - Max quick selectors fill the send amount based on the available balance on the selected token and network and recalculate the receive side live. Truncation rules tuned by token type keep long numbers readable, with hover-to-reveal full precision and USD shown beside the crypto figure.
+  <p class="sol-copy" style="max-width: 900px; margin-top: 14px; margin-bottom: 18px;">
+    Crypto amounts come with friction long decimals, abstract values. Related controls were added. Min - 50% - Max quick selectors fill the send amount based on the available balance on the selected token and network and recalculate the receive side live. Truncation rules tuned by token type keep long numbers readable, with hover to reveal full precision and USD shown beside the crypto figure.
   </p>
-  <div class="vslot-grid two" style="margin-top: auto; margin-bottom: 40px;">
+  <div class="vslot-grid two">
     <div>
       <div class="media">
         <video autoplay loop muted playsinline preload="metadata">
@@ -2492,7 +2539,7 @@
       <div class="media">
         <img src="LongNumbers.png" alt="Long-number behavior" />
       </div>
-      <p class="media-cap">Long-number behavior</p>
+      <p class="media-cap">Long number behavior</p>
     </div>
   </div>
 <div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>08 / 32</span></div>
@@ -2502,15 +2549,15 @@
 <section class="slide sol-slide">
   <div class="eyebrow">Picker</div>
   <h3>One picker. Full context.</h3>
-  <p class="sol-copy" style="max-width: 900px; margin-top: 24px; margin-bottom: 40px;">
-    Picking what to send used to be two steps — chain first, then token — with almost no context attached about the balances, values, wallets and token details. The new picker collapses both into one row per asset: chain × token, USD value, balance, source wallet, all visible at a glance.
+  <p class="sol-copy" style="max-width: 900px; margin-top: 14px; margin-bottom: 18px;">
+    Picking what to send used to be two steps chain first, then token with almost no context attached about the balances, values, wallets and token details. The new picker collapses both into one row per asset: chain × token, USD value, balance, source wallet, all visible at a glance.
   </p>
-  <div class="vslot-grid two compare" style="margin-top: auto; margin-bottom: 40px;">
+  <div class="vslot-grid two compare">
     <div>
       <div class="media-note before">
         <span class="media-note-tag before">Before</span>
         <ul>
-          <li>Two separate steps — pick chain, then token</li>
+          <li>Two separate steps: pick chain, then token</li>
           <li>No balance, USD value, or wallet context</li>
           <li>Easy to choose an asset you can't actually use</li>
         </ul>
@@ -2523,7 +2570,7 @@
       <div class="media-note after">
         <span class="media-note-tag after">After</span>
         <ul>
-          <li>One row per asset — chain × token together</li>
+          <li>One row per asset: chain × token together</li>
           <li>USD value, balance, and source wallet inline</li>
           <li>Full context before you commit</li>
         </ul>
@@ -2540,10 +2587,10 @@
 <section class="slide sol-slide">
   <div class="eyebrow">Picker</div>
   <h3>Sorting, sizing, search.</h3>
-  <p class="sol-copy" style="max-width: 900px; margin-top: 24px; margin-bottom: 40px;">
-    The picker is more than a UI — it's a small system with rules. Sorting changes by context: balance USD when browsing, relevance when searching, popularity for new users. Sizing adapts to its container, with each element having its own breakpoint and priority. Search matches across symbol, chain name, and partial strings, recent picks surface on focus.
+  <p class="sol-copy" style="max-width: 900px; margin-top: 14px; margin-bottom: 18px;">
+    The picker is more than a UI it's a small system with rules. Sorting changes by context. Balance, USD value when browsing, relevance when searching, popularity for new users. Sizing adapts to its container, with each element having its own breakpoint and priority. Search matches across symbol, chain name, recent picks surface on focus.
   </p>
-  <div class="vslot-grid three" style="margin-top: auto; margin-bottom: 40px;">
+  <div class="vslot-grid three">
     <div>
       <div class="media">
         <img src="SortingLogic.png" alt="Sorting logic" />
@@ -2574,10 +2621,10 @@
 <section class="slide sol-slide">
   <div class="eyebrow">Wallets</div>
   <h3>Built for multi-wallet users.</h3>
-  <p class="sol-copy" style="max-width: 900px; margin-top: 24px; margin-bottom: 40px;">
-    Power users carry multiple wallets for trading, cold storage, testing. The old experience treated every connection as a fresh start. The new system shows all connected wallets together, supports two-tap switching, and threads context through the picker, where the right assets are always one tap away.
+  <p class="sol-copy" style="max-width: 900px; margin-top: 14px; margin-bottom: 18px;">
+    Power users carry multiple wallets for trading, cold storage, testing. The old experience treated every connection as a fresh start. The new system shows all connected wallets together, supports two clicks switching, and threads context through the picker, where the right assets are always one tap away.
   </p>
-  <div class="vslot-grid two" style="margin-top: auto; margin-bottom: 40px;">
+  <div class="vslot-grid two">
     <div>
       <div class="media">
         <video autoplay loop muted playsinline preload="metadata">
@@ -2600,10 +2647,10 @@
 <section class="slide sol-slide">
   <div class="eyebrow">Secondary flows</div>
   <h3>Warnings before. Recovery after.</h3>
-  <p class="sol-copy" style="max-width: 900px; margin-top: 24px; margin-bottom: 40px;">
+  <p class="sol-copy" style="max-width: 900px; margin-top: 14px; margin-bottom: 18px;">
     Failed transactions feel mysterious in Web3, users see error codes, not explanations. We improved the experience. Slippage controls in the fees panel surface different states based on threshold, a gentle inline note at moderate slippage, a hard warning when settings risk failure. Warnings catch other problems before submission, recovery patterns handle anything that fails mid-flow without frustrations.
   </p>
-  <div class="vslot-grid two" style="margin-top: auto; margin-bottom: 40px;">
+  <div class="vslot-grid two">
     <div>
       <div class="media">
         <img src="SlippageFlow.png" alt="Slippage controls &amp; warnings — fees panel to warning state" />
@@ -2624,10 +2671,10 @@
 <section class="slide sol-slide">
   <div class="eyebrow">Secondary flows</div>
   <h3>Wayfinding for activity.</h3>
-  <p class="sol-copy" style="max-width: 900px; margin-top: 24px; margin-bottom: 40px;">
+  <p class="sol-copy" style="max-width: 900px; margin-top: 14px; margin-bottom: 18px;">
     Transactions history was outdated and hard to understand. Gave it a home in the redesigned menu, clear status badges, transaction details and retry options where applicable. The menu became the user's anchor for everything that happened and is still happening, like transactions in progress, connected wallets, and account details. A single place to go for all their activity and settings.
   </p>
-  <div class="vslot-grid two" style="margin-top: auto; margin-bottom: 40px;">
+  <div class="vslot-grid two">
     <div>
       <div class="media">
         <img src="Menu.png" alt="The new menu — redesigned navigation with activity, status, and account access" />
@@ -2902,11 +2949,11 @@
     <div class="text-block">
       <div class="eyebrow">Where it started</div>
       <h3>The work I did before joining the team became the starting point for the new system.</h3>
-      <p style="font-size: 15px; color: var(--ink-soft); line-height: 1.55; max-width: 520px; margin-top: 20px;">A promo video created during the earlier phase of design system work at Picsart — which the new dedicated team later took as a starting point.</p>
+      <p style="font-size: 15px; color: var(--ink-soft); line-height: 1.55; max-width: 520px; margin-top: 20px;">A promo video created during the earlier phase of design system work at Picsart which the new dedicated team later took as a starting point.</p>
     </div>
     <div>
       <div class="media no-zoom">
-        <video loop muted playsinline controls preload="metadata">
+        <video loop playsinline controls preload="metadata">
           <source src="https://res.cloudinary.com/dfyoi7f7f/video/upload/v1781050950/DS-Promo_qg5pzv.mp4" type="video/mp4">
         </video>
       </div>
@@ -2950,7 +2997,7 @@
         <li><span class="n">02</span><span class="t">Limits of color interaction in a prototype</span></li>
         <li><span class="n">03</span><span class="t">Conditional scenarios across many states</span></li>
       </ul>
-      <p style="margin-top: 24px; font-size: 15px; color: var(--ink-soft); line-height: 1.55;">Solved by stepping outside Figma into ProtoPie — using conditions, variables, and formulas to build a prototype that responded like the real product.</p>
+      <p style="margin-top: 24px; font-size: 15px; color: var(--ink-soft); line-height: 1.55;">Solved by stepping outside Figma into ProtoPie using conditions, variables, and formulas to build a prototype that responded like the real product.</p>
     </div>
     <div>
       <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
@@ -3029,7 +3076,7 @@
     fitAll();
   });
 
-  let current = 0;
+  let current = 0, resizing = false;
   function goTo(i) {
     if (i < 0) i = 0;
     if (i >= slides.length) i = slides.length - 1;
@@ -3070,9 +3117,10 @@
     entries.forEach(entry => {
       const idx = slides.indexOf(entry.target);
       if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+        entry.target.classList.add('in');
+        if (resizing) return;   // don't let reflow during resize change the active slide
         current = idx;
         setCur(idx);
-        entry.target.classList.add('in');
       }
     });
   }, { threshold: [0.5] });
@@ -3162,12 +3210,28 @@
     if (!stage) return;
     const inner = stage.firstElementChild;
     inner.style.transform = 'none';
+    // While a video inside this slide is fullscreen, a scale transform on the
+    // ancestor breaks the native Fullscreen API rendering — leave it off.
+    const fsEl = document.fullscreenElement || document.webkitFullscreenElement;
+    if (fsEl && inner.contains(fsEl)) return;
+    // Solution slides keep text full-width & true-size (consistent padding); their
+    // media shrinks to fit via CSS instead, so we never scale the whole slide.
+    if (slide.classList.contains('sol-slide')) return;
     const scale = Math.min(1, stage.clientHeight / inner.scrollHeight, stage.clientWidth / inner.scrollWidth);
     inner.style.transform = scale < 0.999 ? 'scale(' + scale.toFixed(4) + ')' : 'none';
   }
   function fitAll() { slides.forEach(fitStage); }
 
   buildStages();
+  // Wrap each solution-slide media in a flex grower so it fills the leftover
+  // height and scales to fit (largest 16:10 — see CSS), text stays true-size.
+  document.querySelectorAll('.sol-slide .vslot-grid .media').forEach(m => {
+    if (m.parentElement && m.parentElement.classList.contains('media-fit')) return;
+    const w = document.createElement('div');
+    w.className = 'media-fit';
+    m.parentNode.insertBefore(w, m);
+    w.appendChild(m);
+  });
   fitAll();
   // Refit on viewport changes and whenever a slide's content reflows (media/fonts).
   const ro = new ResizeObserver(entries => {
@@ -3180,7 +3244,31 @@
     const stage = s.querySelector(':scope > .slide-stage');
     if (stage) { ro.observe(stage); ro.observe(stage.firstElementChild); }
   });
-  window.addEventListener('resize', fitAll);
+  // When a native-controls video enters/exits fullscreen, re-fit so the scaled
+  // stage wrapper drops its transform on the way in (it breaks fullscreen) and
+  // restores the scale-to-fit on the way out.
+  function onFsChange() { fitAll(); }
+  document.addEventListener('fullscreenchange', onFsChange);
+  document.addEventListener('webkitfullscreenchange', onFsChange);
+  // On resize: lock onto the slide we were on (captured once at resize start),
+  // re-fit, and keep it pinned — so reflow can't make the viewport drift to
+  // another slide. The scroll-settle and IntersectionObserver are suppressed
+  // (via `resizing`/`programmatic`) until resizing stops.
+  let resizeTimer = null, lockedSlide = 0;
+  window.addEventListener('resize', () => {
+    if (!resizing) { resizing = true; lockedSlide = current; }
+    programmatic = true;
+    fitAll();
+    if (slides[lockedSlide]) slides[lockedSlide].scrollIntoView({ block: 'center' });
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (slides[lockedSlide]) slides[lockedSlide].scrollIntoView({ block: 'center' });
+      current = lockedSlide;
+      setCur(lockedSlide);
+      resizing = false;
+      programmatic = false;
+    }, 220);
+  });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
 
   // Layerswap slider
