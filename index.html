@@ -59,7 +59,6 @@
   .slide {
     width: 100vw;
     height: 100vh;
-    min-height: 700px;
     position: relative;
     padding: 72px 56px;
     display: flex;
@@ -76,8 +75,8 @@
     position: absolute;
     left: 56px;
     right: 56px;
-    top: 64px;
-    bottom: 64px;
+    top: 52px;
+    bottom: 56px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -189,6 +188,10 @@
     margin: 0;
   }
   .cover-meta-row {
+    position: absolute;
+    left: 56px;
+    bottom: 76px;
+    z-index: 3;
     display: grid;
     grid-template-columns: auto auto;
     gap: 6px 24px;
@@ -207,10 +210,37 @@
     font-size: 12px;
     color: var(--ink-soft);
   }
+  .cover-note {
+    position: absolute;
+    left: 50%;
+    bottom: 104px;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 16px;
+    border: 1px solid var(--line-strong);
+    border-radius: 100px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    line-height: 1.5;
+    color: var(--ink-muted);
+    text-align: center;
+    max-width: min(560px, calc(100% - 112px));
+  }
+  .cover-note .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+  .cover-note strong { color: var(--ink-soft); font-weight: 500; }
 
   /* ─── INDEX ─────────────────────────────────── */
   .index h2 {
-    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 600;
     letter-spacing: -0.025em;
     margin-bottom: 64px;
@@ -286,7 +316,7 @@
     left: 56px;
   }
   .ptitle h2 {
-    font-size: clamp(3.5rem, 9vw, 7.5rem);
+    font-size: clamp(2.75rem, 7.25vw, 6rem);
     line-height: 0.95;
     font-weight: 600;
     letter-spacing: -0.03em;
@@ -401,7 +431,7 @@
     justify-content: center;
   }
   .role-slide h2 {
-    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-size: clamp(2.75rem, 6.5vw, 5.5rem);
     line-height: 0.95;
     font-weight: 600;
     letter-spacing: -0.035em;
@@ -523,6 +553,15 @@
     position: relative;
   }
   .process-step:last-child { border-right: none; }
+  /* compact: fit more steps on one row so every step stays equal width (no wrap).
+     Smaller text + word-wrap so longer labels stay inside their boxes. */
+  .process-flow.compact .process-step { min-width: 96px; padding: 22px 14px; }
+  .process-flow.compact .process-step .pt {
+    font-size: 0.9rem;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
   .process-step .pn {
     font-family: var(--mono);
     font-size: 11px;
@@ -669,6 +708,45 @@
   }
   .proto-btn span { font-size: 15px; line-height: 1; }
 
+  /* ─── VIDEO LINK THUMBNAIL ─────────────────── */
+  .video-link {
+    position: relative;
+    display: block;
+    max-width: 880px;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 24px 56px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .video-link img { display: block; width: 100%; height: auto; }
+  .video-link:hover { transform: translateY(-3px); box-shadow: 0 34px 72px rgba(0, 0, 0, 0.6); }
+  .video-link::after {
+    content: '▶';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: rgba(8, 6, 4, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(244, 236, 216, 0.4);
+    color: #fff;
+    font-size: 20px;
+    padding-left: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    pointer-events: none;
+  }
+  .video-link:hover::after { background: var(--accent); border-color: var(--accent); }
+
   /* ─── HERO STAT ──────────────────────────── */
   .hero-stat {
     align-items: center;
@@ -728,6 +806,39 @@
     border: 1px solid var(--line-strong);
     border-radius: 100px;
     color: var(--ink-soft);
+  }
+
+  /* Reusable pill tags (same look as highlight tags) */
+  .pill-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill-row .pill {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    padding: 8px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 100px;
+    color: var(--ink-soft);
+  }
+  /* Inline stat row (large mono accent number, muted label below) */
+  .ds-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+  }
+  .ds-stat .v {
+    font-family: var(--mono);
+    font-size: clamp(3rem, 6.5vw, 5.5rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+  }
+  .ds-stat .l {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink-muted);
+    letter-spacing: 0.06em;
+    margin-top: 12px;
   }
 
   /* ─── LEARNINGS ────────────────────────────── */
@@ -1204,7 +1315,7 @@
   }
   .ds-card .preview .swatches { display: flex; gap: 6px; }
   .ds-card .preview .sw {
-    width: 22px; height: 22px;
+    width: 30px; height: 30px;
     border-radius: 50%;
   }
   .ds-card .preview .btn-pv {
@@ -1228,15 +1339,34 @@
     text-align: center;
   }
   .ds-card .preview .type-pv .aa {
-    font-size: 32px;
+    font-size: 44px;
     color: var(--ink);
     line-height: 1;
     font-weight: 600;
     letter-spacing: -0.02em;
   }
   .ds-card .preview .icons-pv {
-    display: flex; gap: 12px; color: var(--ink); font-size: 18px;
+    display: flex; gap: 16px; color: var(--ink); font-size: 26px;
   }
+  /* foundation-card previews */
+  .ds-card .preview .sw.light { background: var(--ink); }
+  .ds-card .preview .sw.dark { background: var(--bg); border: 1px solid var(--line-strong); }
+  .ds-card .preview .radii { display: flex; gap: 8px; }
+  .ds-card .preview .radii span {
+    width: 34px; height: 34px;
+    background: rgba(244, 236, 216, 0.06);
+    border: 1px solid var(--line-strong);
+  }
+  .ds-card .preview .devices { display: flex; gap: 12px; align-items: flex-end; }
+  .ds-card .preview .devices i {
+    display: block;
+    border: 1.5px solid var(--ink-soft);
+    border-radius: 4px;
+  }
+  .ds-card .preview .devices .ph { width: 28px; height: 52px; }
+  .ds-card .preview .devices .dt { width: 68px; height: 44px; }
+  .ds-card .preview .ease svg { display: block; }
+  .ds-card .preview .ease path { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; }
 
   /* ─── WEBINAR CARD ─────────────────────────── */
   .webinar {
@@ -1343,7 +1473,7 @@
     text-align: center;
   }
   .closing h2 {
-    font-size: clamp(5rem, 13vw, 11rem);
+    font-size: clamp(4rem, 10.5vw, 8.5rem);
     line-height: 0.95;
     font-weight: 600;
     letter-spacing: -0.04em;
@@ -1694,6 +1824,9 @@
     z-index: 3;
   }
   .media:hover::after { opacity: 1; transform: translateY(0); }
+  /* media that plays in place (native controls) — no zoom cursor or expand badge */
+  .media.no-zoom { cursor: default; }
+  .media.no-zoom::after { display: none; }
 
   /* ─── LIGHTBOX ──────────────────────────────── */
   #lightbox {
@@ -1747,6 +1880,72 @@
     transition: background 0.15s;
   }
   #lightbox .lightbox-close:hover { background: rgba(244, 236, 216, 0.2); }
+
+  /* ─── PROTOTYPE MODAL (live ProtoPie embed) ──── */
+  #proto-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 210;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 4vh 4vw;
+    background: rgba(8, 6, 4, 0.9);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  #proto-modal.open { display: flex; }
+  #proto-modal .proto-frame {
+    position: relative;
+    height: min(90vh, 880px);
+    aspect-ratio: 848 / 1740;
+    max-width: 92vw;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #F5F5F5;
+    box-shadow: 0 50px 120px -24px rgba(0, 0, 0, 0.85);
+  }
+  #proto-modal .proto-frame iframe {
+    position: relative;
+    z-index: 1;          /* sit above the loading hint */
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+  /* loading hint sits BEHIND the iframe — only visible until the embed paints */
+  #proto-modal .proto-frame::before {
+    content: 'Loading prototype…';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: #555;
+  }
+  #proto-modal .lightbox-close {
+    position: fixed;
+    top: 20px;
+    right: 24px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(244, 236, 216, 0.1);
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+  }
+  #proto-modal .lightbox-close:hover { background: rgba(244, 236, 216, 0.2); }
   .slide .media > img,
   .media > video {
     display: block;
@@ -1782,6 +1981,9 @@
     width: 100%;
     aspect-ratio: 16 / 10;
   }
+  /* Cap 2-up tiles so these content-heavy slides fit at full size (no scale-down,
+     which would otherwise shrink width and look like extra left/right padding). */
+  .vslot-grid.two .media { max-height: 34vh; }
   .slide .vslot-grid .media > img,
   .vslot-grid .media > video {
     width: 100%;
@@ -1857,6 +2059,7 @@
     .slide { padding: 40px 36px; }
     .slide-top, .slide-foot { left: 36px; right: 36px; }
     .slide-stage { left: 36px; right: 36px; }
+    .cover-meta-row { left: 36px; }
     .two-col, .two-col.flip { grid-template-columns: 1fr; gap: 36px; }
     .sol-split { grid-template-columns: 1fr; gap: 36px; }
     .ds-grid { grid-template-columns: 1fr 1fr; }
@@ -1883,6 +2086,7 @@
     .slide { padding: 32px 24px; min-height: 100svh; }
     .slide-top, .slide-foot { left: 24px; right: 24px; }
     .slide-stage { left: 24px; right: 24px; }
+    .cover-meta-row { left: 24px; }
     .cover h1 { font-size: clamp(2.5rem, 13vw, 5rem); margin-bottom: 24px; }
     .cover-bottom { flex-direction: column; gap: 20px; }
     .cover-meta-row { grid-template-columns: auto auto; }
@@ -1923,6 +2127,7 @@
     .slide { padding: 28px 20px; }
     .slide-top, .slide-foot { left: 20px; right: 20px; top: 20px; bottom: 20px; }
     .slide-stage { left: 20px; right: 20px; top: 48px; bottom: 48px; }
+    .cover-meta-row { left: 20px; bottom: 60px; }
     .cover-tag { margin-bottom: 32px; font-size: 10px; }
     .cover h1 { font-size: clamp(2.25rem, 14vw, 4rem); }
     .cover .role { font-size: 15px; }
@@ -2074,16 +2279,17 @@
 <!-- 01 COVER -->
 <section class="slide cover">
   <div class="cover-tag"><span class="dot"></span>Senior Product Designer · Portfolio Presentation</div>
+  <p class="cover-note"><span class="dot"></span><span>This is a <strong>slide deck</strong>, not the full portfolio website — the complete portfolio is currently under construction.</span></p>
   <h1>Roupen Babian</h1>
   <div class="cover-bottom">
-    <p class="role">Seven years of designing digital products at every scale — from early-stage startups to platforms used by hundreds of millions.</p>
-    <div class="cover-meta-row">
-      <span class="label">Year</span><span class="value">2025</span>
-      <span class="label">Based in</span><span class="value">Yerevan, Armenia</span>
-      <span class="label">Currently</span><span class="value">Picsart</span>
-    </div>
+    <p class="role">Six years of designing digital products at every scale — from early-stage startups to platforms used by hundreds of millions.</p>
   </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>01 / 31</span></div>
+  <div class="cover-meta-row">
+    <span class="label">Year</span><span class="value">2026</span>
+    <span class="label">Based in</span><span class="value">Yerevan, Armenia</span>
+    <span class="label">Currently</span><span class="value">Picsart contractor</span>
+  </div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>01 / 32</span></div>
 </section>
 
 <!-- 02 INDEX -->
@@ -2104,18 +2310,18 @@
     </a>
     <a class="idx-row" href="#project-3">
       <span class="num">03</span>
-      <span class="name">Picsart's Color Picker Prototype</span>
-      <span class="desc">Complex ProtoPie prototype built outside Figma. Featured in a ProtoPie webinar.</span>
-      <span class="jump">→ 21</span>
-    </a>
-    <a class="idx-row" href="#project-4">
-      <span class="num">04</span>
       <span class="name">Picsart's Design System</span>
       <span class="desc">Component library and editor redesign with senior managers.</span>
       <span class="jump">→ 26</span>
     </a>
+    <a class="idx-row" href="#project-4">
+      <span class="num">04</span>
+      <span class="name">Picsart's Color Picker Prototype</span>
+      <span class="desc">Complex ProtoPie prototype built outside Figma. Featured in a ProtoPie webinar.</span>
+      <span class="jump">→ 21</span>
+    </a>
   </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>02 / 31</span></div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>02 / 32</span></div>
 </section>
 
 <!-- 03 LAYERSWAP TITLE -->
@@ -2123,7 +2329,7 @@
   <div class="pseq">Project 01</div>
   <h2>Layerswap's<br>Redesign.</h2>
   <p class="one-liner">A series of patches on a cross-chain bridge slowly revealed a structural flaw — and turned into a full app redesign.</p>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>03 / 31</span></div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>03 / 32</span></div>
 </section>
 
 <!-- 04 WHAT + WHY (stacked) -->
@@ -2162,7 +2368,7 @@
     </div>
   </div>
 
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>04 / 31</span></div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>04 / 32</span></div>
 </section>
 
 <!-- 07 PROBLEMS -->
@@ -2185,7 +2391,7 @@
       </div>
     </div>
   </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>05 / 31</span></div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>05 / 32</span></div>
 </section>
 
 <!-- 08 PROCESS -->
@@ -2202,8 +2408,8 @@
     <div class="process-step"><div class="pn">07</div><div class="pt">Design system</div></div>
     <div class="process-step"><div class="pn">08</div><div class="pt">Handoff</div></div>
   </div>
-  <p class="note">The turning point: recognizing that every "small improvement" on the backlog was symptom of one structural problem. I pitched the scope expansion with user evidence — and we shipped a full redesign.</p>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>06 / 31</span></div>
+  <p class="note">The turning point: recognizing that every "small improvement" on the backlog was symptom of one structural problem. I pitched the scope expansion — and we shipped a full redesign.</p>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>06 / 32</span></div>
 </section>
 
 <!-- 09 LAYERSWAP · SOLUTION · Form -->
@@ -2211,20 +2417,20 @@
   <div class="sol-split">
     <div class="text-block">
       <div class="eyebrow">Main page</div>
-      <h3>Two boxes replaced four dropdowns.</h3>
+      <h3>Two boxes replaced eight.</h3>
       <p style="font-size: 1rem; color: var(--ink-soft); line-height: 1.55; max-width: 520px; margin-top: 20px;">
-        The old form forced four sequential decisions onto one screen — chain, token, chain, token. The new pattern collapses them into two clear destinations: send and receive. Same task, fewer clicks, less cognitive load.
+        The old form forced too many sequential decisions onto one screen — source chain, token, destinationchain, token, address, fees and details. The new pattern collapses them into two clear components: send and receive. Same task, fewer clicks, less cognitive load.
       </p>
       <div class="stat-callout">
         <div class="grp">
           <div class="lbl">Before</div>
-          <div class="num">[X]</div>
+          <div class="num">[8]</div>
           <div class="unit">clicks</div>
         </div>
         <div class="arrow">→</div>
         <div class="grp after">
           <div class="lbl">After</div>
-          <div class="num">[Y]</div>
+          <div class="num">[4]</div>
           <div class="unit">clicks</div>
         </div>
         <div class="meta">For a typical transfer</div>
@@ -2263,7 +2469,7 @@
       </div>
     </div>
   </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>07 / 31</span></div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>07 / 32</span></div>
 </section>
 
 <!-- 10 LAYERSWAP · SOLUTION · Smart inputs -->
@@ -2271,7 +2477,7 @@
   <div class="eyebrow">Main page</div>
   <h3>Numbers, made manageable.</h3>
   <p class="sol-copy" style="max-width: 900px; margin-top: 24px; margin-bottom: 40px;">
-    Crypto amounts come with friction — long decimals, abstract values. I designed two related controls. Min/max quick selectors fill the send amount and recalculate the receive side live. Truncation rules tuned by token type keep long numbers readable, with hover-to-reveal full precision and USD shown beside the crypto figure.
+    Crypto amounts come with friction — long decimals, abstract values. Related controls were added. Min - 50% - Max quick selectors fill the send amount based on the available balance on the selected token and network and recalculate the receive side live. Truncation rules tuned by token type keep long numbers readable, with hover-to-reveal full precision and USD shown beside the crypto figure.
   </p>
   <div class="vslot-grid two" style="margin-top: auto; margin-bottom: 40px;">
     <div>
@@ -2280,7 +2486,7 @@
           <source src="MinMaxBehavior.mp4" type="video/mp4">
         </video>
       </div>
-      <p class="media-cap">Min/max quick selectors</p>
+      <p class="media-cap">Min-50%-max quick selectors</p>
     </div>
     <div>
       <div class="media">
@@ -2289,7 +2495,7 @@
       <p class="media-cap">Long-number behavior</p>
     </div>
   </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>08 / 31</span></div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>08 / 32</span></div>
 </section>
 
 <!-- 11 LAYERSWAP · SOLUTION · Picker UI -->
@@ -2297,7 +2503,7 @@
   <div class="eyebrow">Picker</div>
   <h3>One picker. Full context.</h3>
   <p class="sol-copy" style="max-width: 900px; margin-top: 24px; margin-bottom: 40px;">
-    Picking what to send used to be two steps — chain first, then token — with almost no context attached. The new picker collapses both into one row per asset: chain × token, USD value, balance, source wallet, all visible at a glance.
+    Picking what to send used to be two steps — chain first, then token — with almost no context attached about the balances, values, wallets and token details. The new picker collapses both into one row per asset: chain × token, USD value, balance, source wallet, all visible at a glance.
   </p>
   <div class="vslot-grid two compare" style="margin-top: auto; margin-bottom: 40px;">
     <div>
@@ -2327,7 +2533,7 @@
       </div>
     </div>
   </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>09 / 31</span></div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>09 / 32</span></div>
 </section>
 
 <!-- 12 LAYERSWAP · SOLUTION · Picker system -->
@@ -2335,14 +2541,14 @@
   <div class="eyebrow">Picker</div>
   <h3>Sorting, sizing, search.</h3>
   <p class="sol-copy" style="max-width: 900px; margin-top: 24px; margin-bottom: 40px;">
-    The picker is more than a UI — it's a small system with rules. Sorting changes by context: balance USD when browsing, relevance when searching, popularity for new users. Sizing adapts to its container, with each element having its own breakpoint and priority. Search matches across symbol, chain name, and partial strings; recent picks surface on focus.
+    The picker is more than a UI — it's a small system with rules. Sorting changes by context: balance USD when browsing, relevance when searching, popularity for new users. Sizing adapts to its container, with each element having its own breakpoint and priority. Search matches across symbol, chain name, and partial strings, recent picks surface on focus.
   </p>
   <div class="vslot-grid three" style="margin-top: auto; margin-bottom: 40px;">
     <div>
       <div class="media">
-        <img src="SortingLogic.png" alt="Sorting logic per context" />
+        <img src="SortingLogic.png" alt="Sorting logic" />
       </div>
-      <p class="media-cap">Sorting logic per context</p>
+      <p class="media-cap">Sorting logic</p>
     </div>
     <div>
       <div class="media">
@@ -2361,7 +2567,7 @@
       <p class="media-cap">Interactive search</p>
     </div>
   </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>10 / 31</span></div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>10 / 32</span></div>
 </section>
 
 <!-- 13 LAYERSWAP · SOLUTION · Wallets -->
@@ -2369,7 +2575,7 @@
   <div class="eyebrow">Wallets</div>
   <h3>Built for multi-wallet users.</h3>
   <p class="sol-copy" style="max-width: 900px; margin-top: 24px; margin-bottom: 40px;">
-    Power users carry multiple wallets — for trading, cold storage, testing. The old experience treated every connection as a fresh auth dance. The new system shows all connected wallets together, supports two-tap switching, and threads context through the picker, where assets group by source wallet so the right one is always one tap away.
+    Power users carry multiple wallets — for trading, cold storage, testing. The old experience treated every connection as a fresh start. The new system shows all connected wallets together, supports two-tap switching, and threads context through the picker, where the right assets areslid always one tap away.
   </p>
   <div class="vslot-grid two" style="margin-top: auto; margin-bottom: 40px;">
     <div>
@@ -2387,7 +2593,7 @@
       <p class="media-cap">Wallets inside the picker</p>
     </div>
   </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>11 / 31</span></div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>11 / 32</span></div>
 </section>
 
 <!-- 14 LAYERSWAP · SOLUTION · Awareness -->
@@ -2395,7 +2601,7 @@
   <div class="eyebrow">Secondary flows</div>
   <h3>Warnings before. Recovery after.</h3>
   <p class="sol-copy" style="max-width: 900px; margin-top: 24px; margin-bottom: 40px;">
-    Failed transactions feel mysterious in Web3 — users see error codes, not explanations. I designed two layered flows. Slippage controls in the fees panel surface different states based on threshold: a gentle inline note at moderate slippage, a hard warning when settings risk failure. Warnings catch other problems before submission; recovery patterns handle anything that fails mid-flow.
+    Failed transactions feel mysterious in Web3 — users see error codes, not explanations. We improved the experience. Slippage controls in the fees panel surface different states based on threshold, a gentle inline note at moderate slippage, a hard warning when settings risk failure. Warnings catch other problems before submission, recovery patterns handle anything that fails mid-flow without frustrations.
   </p>
   <div class="vslot-grid two" style="margin-top: auto; margin-bottom: 40px;">
     <div>
@@ -2411,7 +2617,7 @@
       <p class="media-cap">Errors &amp; recovery</p>
     </div>
   </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>12 / 31</span></div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>12 / 32</span></div>
 </section>
 
 <!-- 15 LAYERSWAP · SOLUTION · Menu & History -->
@@ -2419,7 +2625,7 @@
   <div class="eyebrow">Secondary flows</div>
   <h3>Wayfinding for activity.</h3>
   <p class="sol-copy" style="max-width: 900px; margin-top: 24px; margin-bottom: 40px;">
-    Transactions history was buried in the old experience. I gave it a home in the redesigned menu — recent activity, clear status badges, link-outs to block explorers, and retry where applicable. The menu became the user's anchor for everything that happened and is still happening.
+    Transactions history was outdated and hard to understand. Gave it a home in the redesigned menu — recent activity, clear status badges, transaction details and retry options where applicable. The menu became the user's anchor for everything that happened and is still happening, like transactions in progress, connected wallets, and account details — a single place to go for all their activity and settings.
   </p>
   <div class="vslot-grid two" style="margin-top: auto; margin-bottom: 40px;">
     <div>
@@ -2437,7 +2643,7 @@
       <p class="media-cap">Transactions history</p>
     </div>
   </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>13 / 31</span></div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>13 / 32</span></div>
 </section>
 
 <!-- 10 HIGHLIGHTS -->
@@ -2451,7 +2657,7 @@
     <span class="tag">Design system</span>
     <span class="tag">Scope-expansion judgment</span>
   </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>14 / 31</span></div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>14 / 32</span></div>
 </section>
 
 <!-- 11 OUTCOME -->
@@ -2461,29 +2667,29 @@
   <div class="pills">
     <span class="pill"><span class="gd">●</span>Shipped to production</span>
     <span class="pill">Positive feedback on X</span>
-    <span class="pill">Full design system delivered</span>
+    <span class="pill">Full experienceredesign delivered</span>
   </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>15 / 31</span></div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>15 / 32</span></div>
 </section>
 
 <!-- 18 PROJECT 02 · Font Chooser · Title -->
 <section class="slide ptitle" id="project-2">
   <div class="pseq">Project 02</div>
   <h2>Picsart's<br>Font Chooser.</h2>
-  <p class="one-liner">Picsart's number-one revenue feature, redesigned solo across three shipped iterations — ending with a +30.11% revenue lift.</p>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>16 / 31</span></div>
+  <p class="one-liner">Picsart's number-one revenue feature, redesigned solo across three shipped iterations — ending with a revenue lift.</p>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>16 / 32</span></div>
 </section>
 
 <!-- 19 FONT CHOOSER · Context -->
 <section class="slide statement">
   <div class="eyebrow">Context</div>
-  <p class="quote">Picsart's #1 revenue feature, the first large-scope project I owned solo, and the start of a UX pattern that spread across the editor.</p>
+  <p class="quote">Picsart's #1 revenue feature, the first large-scope project I owned solo, and the start of a UX pattern that would later spread across the editor.</p>
   <div class="detail-row">
     <div class="detail"><span class="key">Significance</span><span class="val">#1 revenue generator at Picsart</span></div>
     <div class="detail"><span class="key">My role</span><span class="val">Solo designer at the text team</span></div>
-    <div class="detail"><span class="key">Process</span><span class="val">Competitors → Ideation → Critiques → Prototyping → Testing → Dev</span></div>
+    <div class="detail"><span class="key">Process</span><span class="val">Competitors → Ideation → Critiques → Prototyping → A/B Testing → Iterating → Dev</span></div>
   </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>17 / 31</span></div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>17 / 32</span></div>
 </section>
 
 <!-- 20 FONT CHOOSER · Problems -->
@@ -2501,22 +2707,20 @@
       </ul>
     </div>
     <div>
-      <div class="vslot wide" style="min-height: 380px;">
-        <div class="vtype">Screen</div>
-        <div class="vlabel">Old font chooser</div>
-        <div class="vdesc">The buried, dated text tool before the redesign.</div>
+      <div class="media" style="max-width: 360px; margin: 0 auto; background: transparent; box-shadow: none;">
+        <img src="OldChooser.png" alt="Old font chooser — the dated text tool before the redesign" style="max-height: 58vh;" />
       </div>
     </div>
   </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>18 / 31</span></div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>18 / 32</span></div>
 </section>
 
 <!-- FONT CHOOSER · Process -->
 <section class="slide process-slide">
   <div class="eyebrow">Process</div>
   <h3>From research to A/B-tested iterations.</h3>
-  <div class="process-flow">
-    <div class="process-step"><div class="pn">01</div><div class="pt">Competitors</div></div>
+  <div class="process-flow compact">
+    <div class="process-step"><div class="pn">01</div><div class="pt">Competitor research</div></div>
     <div class="process-step"><div class="pn">02</div><div class="pt">Ideation</div></div>
     <div class="process-step"><div class="pn">03</div><div class="pt">Design critiques</div></div>
     <div class="process-step"><div class="pn">04</div><div class="pt">Prototyping</div></div>
@@ -2526,8 +2730,8 @@
     <div class="process-step highlight"><div class="pn">08</div><div class="pt">Improvements</div></div>
     <div class="process-step highlight"><div class="pn">09</div><div class="pt">A/B testing</div></div>
   </div>
-  <p class="note">The redesign shipped in iterations, each validated by A/B testing — test, improve, test again. That loop is what turned the new chooser into a +30.11% revenue lift.</p>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>19 / 31</span></div>
+  <p class="note">The redesign shipped in iterations, each validated by A/B testing — test, improve, test again. That loop is what lead to a better user engagement.</p>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>19 / 32</span></div>
 </section>
 
 <!-- FONT CHOOSER · Solution -->
@@ -2542,6 +2746,7 @@
         <li><span class="n">03</span><span class="t">A fresh, modern interface</span></li>
         <li><span class="n">04</span><span class="t">Previously hidden features, surfaced</span></li>
         <li><span class="n">05</span><span class="t">Designed to lift user engagement</span></li>
+        <li><span class="n">06</span><span class="t">Micro-interactions for a delightful experience</span></li>
       </ul>
     </div>
     <div>
@@ -2553,7 +2758,7 @@
       </div>
     </div>
   </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>20 / 31</span></div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>20 / 32</span></div>
 </section>
 
 <!-- FONT CHOOSER · Iterations (merged) -->
@@ -2588,31 +2793,150 @@
         <div class="iter-desc">Restructured the monetization flow</div>
       </div>
       <div class="iter-stats">
-        <div class="iter-stat"><div class="v up"><span class="sym">↑</span>+30.11%</div><div class="l">Revenue generated from text</div></div>
+        <div class="iter-stat"><div class="v up"><span class="sym">↑</span>+30.11%</div><div class="l">Revenue generated from the tool in US market</div></div>
       </div>
     </div>
   </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>21 / 31</span></div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>21 / 32</span></div>
+</section>
+
+<!-- 29 TITLE -->
+<section class="slide ptitle" id="project-3">
+  <div class="pseq">Project 03</div>
+  <h2>Picsart's<br>Design System.</h2>
+  <p class="one-liner">Editor design updates, consistency across platforms, the start of a big change — and the Figma library that made it possible.</p>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>26 / 32</span></div>
+</section>
+
+<!-- 30 WHY -->
+<section class="slide statement">
+  <div class="eyebrow">Why I chose this project</div>
+  <p class="quote">Trust at this scale means foundational work — components, rules, and documentation that outlive the project.</p>
+  <div class="detail-row">
+    <div class="detail"><span class="key">Significance</span><span class="val">Foundation across platforms</span></div>
+    <div class="detail"><span class="key">Group</span><span class="val">Smaller team with senior managers</span></div>
+    <div class="detail"><span class="key">Trust</span><span class="val">Gained, kept, expanded</span></div>
+  </div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>27 / 32</span></div>
+</section>
+
+<!-- 31 WHAT + ROLE -->
+<section class="slide role-slide">
+  <div class="eyebrow">What &amp; my role</div>
+  <h2>Components.<br>Library. Rules. System. Atomic Design.</h2>
+  <p class="scope">Editor redesign within the broader design team. Components and library within a smaller group of senior managers. Figma library creation, documentation, and multi-platform coverage.</p>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>28 / 32</span></div>
+</section>
+
+<!-- 32 PROCESS + COMPONENT GRID -->
+<section class="slide">
+  <div style="display: flex; flex-direction: column; gap: 28px;">
+    <div>
+      <div class="eyebrow">The system</div>
+      <h3 style="font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; font-weight: 600; letter-spacing: -0.025em; margin-bottom: 24px; max-width: 900px; color: var(--ink);">The building blocks.</h3>
+      <div class="ds-stats">
+        <div class="ds-stat"><div class="v">46</div><div class="l">Atoms</div></div>
+        <div class="ds-stat"><div class="v">30</div><div class="l">Molecules</div></div>
+        <div class="ds-stat"><div class="v">7</div><div class="l">Organisms</div></div>
+      </div>
+    </div>
+
+    <div class="ds-grid">
+      <div class="ds-card">
+        <div class="preview"><div class="swatches">
+          <div class="sw light"></div>
+          <div class="sw dark"></div>
+          <div class="sw" style="background: var(--accent);"></div>
+          <div class="sw" style="background: var(--green);"></div>
+        </div></div>
+        <div class="name">Colors · Light/Dark</div>
+      </div>
+      <div class="ds-card">
+        <div class="preview"><div class="icons-pv"><span>★</span><span>♥</span><span>◐</span><span>▣</span></div></div>
+        <div class="name">Icons</div>
+      </div>
+      <div class="ds-card">
+        <div class="preview"><div class="type-pv"><div class="aa">Aa</div></div></div>
+        <div class="name">Typography</div>
+      </div>
+      <div class="ds-card">
+        <div class="preview"><div class="radii">
+          <span style="border-radius: 0;"></span>
+          <span style="border-radius: 5px;"></span>
+          <span style="border-radius: 50%;"></span>
+        </div></div>
+        <div class="name">Spacing · Corner Radius</div>
+      </div>
+      <div class="ds-card">
+        <div class="preview"><div class="devices"><i class="ph"></i><i class="dt"></i></div></div>
+        <div class="name">Responsive Design</div>
+      </div>
+      <div class="ds-card">
+        <div class="preview"><div class="ease">
+          <svg width="108" height="62" viewBox="0 0 84 48" aria-hidden="true"><path d="M3 45 C 32 45, 52 3, 81 3"/></svg>
+        </div></div>
+        <div class="name">Timing &amp; Easing</div>
+      </div>
+    </div>
+  </div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>29 / 32</span></div>
+</section>
+
+<!-- 33 HIGHLIGHTS -->
+<section class="slide highlights-slide">
+  <div class="eyebrow">Highlights</div>
+  <p class="pull">Mastered Figma at scale. Created a foundation that multiple teams now design with.</p>
+  <div class="tags">
+    <span class="tag">Senior management collaboration</span>
+    <span class="tag">Multi-platform coverage</span>
+    <span class="tag">Documentation</span>
+    <span class="tag">Component-library scale</span>
+    <span class="tag">Smart Figma components</span>
+  </div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>31 / 32</span></div>
+</section>
+
+<!-- DESIGN SYSTEM · Where it started (promo video) -->
+<section class="slide">
+  <div class="two-col">
+    <div class="text-block">
+      <div class="eyebrow">Where it started</div>
+      <h3>The work I did before joining the team became the starting point for the new system.</h3>
+      <p style="font-size: 15px; color: var(--ink-soft); line-height: 1.55; max-width: 520px; margin-top: 20px;">A promo video created during the earlier phase of design system work at Picsart — which the new dedicated team later took as a starting point.</p>
+    </div>
+    <div>
+      <div class="media no-zoom">
+        <video loop muted playsinline controls preload="metadata">
+          <source src="https://res.cloudinary.com/dfyoi7f7f/video/upload/v1781050950/DS-Promo_qg5pzv.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>32 / 32</span></div>
 </section>
 
 <!-- 24 TITLE -->
-<section class="slide ptitle" id="project-3">
-  <div class="pseq">Project 03</div>
+<section class="slide ptitle" id="project-4">
+  <div class="pseq">Project 04</div>
   <h2>Picsart's<br>Color Picker<br>Prototype.</h2>
-  <p class="one-liner">A complex, fully-interactive prototype built outside Figma — using conditions, variables, and formulas in ProtoPie.</p>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>21 / 31</span></div>
+  <p class="one-liner">A complex, fully-interactive prototype built outside Figma — using conditions, variables, and formulas in ProtoPie. Prototyping before vibe coding.</p>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>21 / 32</span></div>
 </section>
 
 <!-- 25 WHY + WHAT -->
 <section class="slide statement">
   <div class="eyebrow">Why &amp; what</div>
-  <p class="quote">The drawing team needed a complex prototype outside Figma. I built it as a learning leap.</p>
+  <p class="quote">The drawing team needed a complex prototype outside Figma. Built it as a learning leap, while mastering a new tool.</p>
   <div class="detail-row">
     <div class="detail"><span class="key">Context</span><span class="val">Drawing team's project</span></div>
     <div class="detail"><span class="key">My role</span><span class="val">Support designer · ProtoPie prototype</span></div>
-    <div class="detail"><span class="key">Era</span><span class="val">Beginning of my prototyping era</span></div>
+    <div class="detail"><span class="key">Era</span><span class="val">Beginning of my complex prototyping journey</span></div>
   </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>22 / 31</span></div>
+  <div class="detail-row" style="margin-top: 24px;">
+    <div class="detail"><span class="key">Challenge</span><span class="val">Limited time and flexibility</span></div>
+    <div class="detail"><span class="key">Achievement</span><span class="val">High-fidelity interactive prototyping skills</span></div>
+  </div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>22 / 32</span></div>
 </section>
 
 <!-- 26 PROBLEMS + SOLUTION -->
@@ -2628,199 +2952,26 @@
       </ul>
       <p style="margin-top: 24px; font-size: 15px; color: var(--ink-soft); line-height: 1.55;">Solved by stepping outside Figma into ProtoPie — using conditions, variables, and formulas to build a prototype that responded like the real product.</p>
     </div>
-    <div class="phone">
-      <div class="screen">
-        <div class="notch"></div>
-        <div class="topbar"><span>2:51</span><span>••• 🔋</span></div>
-        <div class="tools">
-          <span>Cancel</span>
-          <div class="icons">↶ ↷ ⌫ ⊕</div>
-          <span style="color: var(--accent); font-weight: 600;">Apply</span>
+    <div>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+        <div class="media" style="max-width: 360px; background: transparent; box-shadow: none;">
+          <img src="ColorPickerScreen.png" alt="Color picker prototype" style="max-height: 58vh;" />
         </div>
-        <div class="canvas linen">
-          <div style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); color: #1a1a1a; font-weight: 800; font-size: 18px; letter-spacing: -0.02em;">NEW COLLECTION</div>
-        </div>
-        <div class="color-area">
-          <div class="color-spectrum"></div>
-          <div class="color-swatches">
-            <div class="color-sw" style="background: #FFFFFF;"></div>
-            <div class="color-sw" style="background: conic-gradient(red, yellow, green, blue, magenta, red);"></div>
-            <div class="color-sw active" style="background: #000;"></div>
-            <div class="color-sw" style="background: #6B46C1;"></div>
-            <div class="color-sw" style="background: #4F46E5;"></div>
-            <div class="color-sw" style="background: #06B6D4;"></div>
-            <div class="color-sw" style="background: #84CC16;"></div>
-            <div class="color-sw" style="background: #FACC15;"></div>
-            <div class="color-sw" style="background: #F59E0B;"></div>
-          </div>
-          <div class="color-types">
-            <span class="active">Solid</span>
-            <span>Gradient</span>
-            <span>Texture</span>
-          </div>
-        </div>
-        <div class="phone-tabs">
-          <div class="tab"><div class="ic">+</div></div>
-          <div class="tab"><div class="ic">⌨</div>Type</div>
-          <div class="tab"><div class="ic">Aa</div>Font</div>
-          <div class="tab active"><div class="ic">○</div>Color</div>
-          <div class="tab"><div class="ic">◐</div>Blend</div>
-          <div class="tab"><div class="ic">A+</div>Styles</div>
-        </div>
+        <a class="proto-btn" style="margin-top: 0;" href="https://cloud.protopie.io/p/d9e0cd14cf3ed361c0787c4b?ui=true&amp;scaleToFit=true&amp;enableHotspotHints=true&amp;cursorType=touch&amp;mockup=true&amp;bgColor=%23F5F5F5&amp;bgImage=undefined&amp;playSpeed=1" target="_blank" rel="noopener">View the prototype <span>↗</span></a>
       </div>
     </div>
   </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>23 / 31</span></div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>23 / 32</span></div>
 </section>
 
 <!-- 27 HIGHLIGHTS + Webinar -->
 <section class="slide">
   <div class="eyebrow">Highlights</div>
   <h3 style="font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.1; font-weight: 600; letter-spacing: -0.025em; margin-bottom: 24px; max-width: 1000px; color: var(--ink);">Out-of-the-box prototyping. Fully interactive. Featured in a ProtoPie webinar.</h3>
-  <div class="webinar">
-    <div class="thumb">
-      <span class="pbadge">ProtoPie · Webinar</span>
-      <span class="titlebit">How Picsart<br>Designers Free<br>Their Ideas</span>
-      <span class="duration">28:44</span>
-    </div>
-    <div class="info">
-      <h4>Picsart's Color Picker Tool Redesign Using Complex Prototyping in ProtoPie</h4>
-      <div class="meta">11 chapters · featuring Roupen Babian &amp; Lilit Mkrtchyan</div>
-    </div>
-  </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>24 / 31</span></div>
-</section>
-
-<!-- 28 LEARNINGS -->
-<section class="slide learnings-slide">
-  <div class="eyebrow">Reflections</div>
-  <h3>Time pressure produced new craft.</h3>
-  <div class="learn-cards" style="grid-template-columns: 1fr 1fr; max-width: 900px;">
-    <div class="learn-card">
-      <div class="lk">Challenge</div>
-      <div class="ln">01</div>
-      <div class="lt">Limited time and flexibility</div>
-    </div>
-    <div class="learn-card">
-      <div class="lk">Achievement</div>
-      <div class="ln">02</div>
-      <div class="lt">High-fidelity interactive prototyping skills</div>
-    </div>
-  </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>25 / 31</span></div>
-</section>
-
-<!-- 29 TITLE -->
-<section class="slide ptitle" id="project-4">
-  <div class="pseq">Project 04</div>
-  <h2>Picsart's<br>Design System.</h2>
-  <p class="one-liner">Editor redesign, consistency across platforms, the start of a big change — and the Figma library that made it possible.</p>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>26 / 31</span></div>
-</section>
-
-<!-- 30 WHY -->
-<section class="slide statement">
-  <div class="eyebrow">Why I chose this project</div>
-  <p class="quote">Trust at this scale means foundational work — components, rules, and documentation that outlive the project.</p>
-  <div class="detail-row">
-    <div class="detail"><span class="key">Significance</span><span class="val">Foundation across platforms</span></div>
-    <div class="detail"><span class="key">Group</span><span class="val">Smaller team with senior managers</span></div>
-    <div class="detail"><span class="key">Trust</span><span class="val">Gained, kept, expanded</span></div>
-  </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>27 / 31</span></div>
-</section>
-
-<!-- 31 WHAT + ROLE -->
-<section class="slide role-slide">
-  <div class="eyebrow">What &amp; my role</div>
-  <h2>Components.<br>Library. Rules.</h2>
-  <p class="scope">Editor redesign within the broader design team. Components and library within a smaller group of senior managers. Figma library creation, documentation, and multi-platform coverage.</p>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>28 / 31</span></div>
-</section>
-
-<!-- 32 PROCESS + COMPONENT GRID -->
-<section class="slide">
-  <div style="display: flex; flex-direction: column; gap: 40px;">
-    <div>
-      <div class="eyebrow">Problems &amp; process</div>
-      <h3 style="font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; font-weight: 600; letter-spacing: -0.025em; margin-bottom: 24px; max-width: 900px; color: var(--ink);">Lack of consistency. Outdated tools. No guidelines.</h3>
-      <p style="font-size: 15px; color: var(--ink-soft); line-height: 1.6; max-width: 900px;">Gather requirements per component from each team → define variants → create UI → define behavior, specs &amp; rules → smart Figma components → interactions where needed → stakeholder review → documentation.</p>
-    </div>
-
-    <div class="ds-grid">
-      <div class="ds-card">
-        <div class="ds-top">
-          <span class="tag">Color</span><span class="count">32 tokens</span>
-        </div>
-        <div class="preview">
-          <div class="swatches">
-            <div class="sw" style="background: var(--accent);"></div>
-            <div class="sw" style="background: var(--green);"></div>
-            <div class="sw" style="background: var(--ink);"></div>
-            <div class="sw" style="background: var(--ink-soft);"></div>
-          </div>
-        </div>
-        <div class="name">Tokens</div>
-      </div>
-      <div class="ds-card">
-        <div class="ds-top">
-          <span class="tag">Button</span><span class="count">12 variants</span>
-        </div>
-        <div class="preview"><div class="btn-pv">Primary</div></div>
-        <div class="name">Button</div>
-      </div>
-      <div class="ds-card">
-        <div class="ds-top">
-          <span class="tag">Input</span><span class="count">8 variants</span>
-        </div>
-        <div class="preview"><div class="input-pv">Label text</div></div>
-        <div class="name">Input</div>
-      </div>
-      <div class="ds-card">
-        <div class="ds-top">
-          <span class="tag">Type</span><span class="count">14 styles</span>
-        </div>
-        <div class="preview"><div class="type-pv"><div class="aa">Aa</div></div></div>
-        <div class="name">Typography</div>
-      </div>
-      <div class="ds-card">
-        <div class="ds-top">
-          <span class="tag">Icon</span><span class="count">200+</span>
-        </div>
-        <div class="preview"><div class="icons-pv"><span>★</span><span>♥</span><span>◐</span><span>▣</span></div></div>
-        <div class="name">Icons</div>
-      </div>
-      <div class="ds-card">
-        <div class="ds-top">
-          <span class="tag">Layout</span><span class="count">8pt grid</span>
-        </div>
-        <div class="preview" style="padding: 0 24px;">
-          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; width: 100%;">
-            <div style="aspect-ratio: 1; background: var(--card-2); border-radius: 3px;"></div>
-            <div style="aspect-ratio: 1; background: var(--card-2); border-radius: 3px;"></div>
-            <div style="aspect-ratio: 1; background: var(--card-2); border-radius: 3px;"></div>
-            <div style="aspect-ratio: 1; background: var(--card-2); border-radius: 3px;"></div>
-          </div>
-        </div>
-        <div class="name">Grid</div>
-      </div>
-    </div>
-  </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>29 / 31</span></div>
-</section>
-
-<!-- 33 HIGHLIGHTS -->
-<section class="slide highlights-slide">
-  <div class="eyebrow">Highlights</div>
-  <p class="pull">Mastered Figma at scale. The foundation multiple teams now design against.</p>
-  <div class="tags">
-    <span class="tag">Senior management collaboration</span>
-    <span class="tag">Multi-platform coverage</span>
-    <span class="tag">Documentation</span>
-    <span class="tag">Component-library scale</span>
-    <span class="tag">Smart Figma components</span>
-  </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>30 / 31</span></div>
+  <a class="video-link" href="https://youtu.be/XEPsrXd_PXE?si=8WVWxKq-OSOqze6A" target="_blank" rel="noopener" aria-label="Watch the ProtoPie webinar on YouTube">
+    <img src="ProtopieLinkThumbnail.png" alt="Picsart's Color Picker Tool Redesign Using Complex Prototyping in ProtoPie — ProtoPie webinar" />
+  </a>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>24 / 32</span></div>
 </section>
 
 <!-- 34 CLOSING -->
@@ -2831,7 +2982,7 @@
     <a href="mailto:rbabeyan@gmail.com">rbabeyan@gmail.com</a>
     <a href="https://linkedin.com/in/roupenbabian">linkedin.com/in/roupenbabian</a>
   </div>
-<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>31 / 31</span></div>
+<div class="slide-foot"><span>Roupen Babian</span><span class="rule"></span><span>31 / 32</span></div>
 </section>
 
 <!-- ─── CONTROLS ─────────────────────────────── -->
@@ -2852,6 +3003,11 @@
 <div id="lightbox" aria-hidden="true">
   <button class="lightbox-close" aria-label="Close (Esc)">✕</button>
   <div class="lightbox-stage"></div>
+</div>
+
+<div id="proto-modal" aria-hidden="true">
+  <button class="lightbox-close" aria-label="Close (Esc)">✕</button>
+  <div class="proto-frame"></div>
 </div>
 
 <script>
@@ -3130,7 +3286,7 @@
         applyCap(el, orig.naturalWidth, orig.naturalHeight);
       } else {
         el = document.createElement('video');
-        el.autoplay = true; el.loop = true; el.muted = true;
+        el.autoplay = true; el.loop = true; el.muted = false; el.volume = 1;
         el.playsInline = true; el.controls = true;
         orig.querySelectorAll('source').forEach(s => {
           const c = document.createElement('source');
@@ -3138,6 +3294,9 @@
           el.appendChild(c);
         });
         applyCap(el, orig.videoWidth, orig.videoHeight);
+        // Try to play with sound (allowed since opening is a user click); if the
+        // browser blocks unmuted autoplay, the controls let the user start it.
+        el.play && el.play().catch(() => {});
       }
       stage.appendChild(el);
       lb.classList.add('open');
@@ -3151,7 +3310,7 @@
       document.body.style.overflow = '';
     }
 
-    document.querySelectorAll('.media').forEach(m => {
+    document.querySelectorAll('.media:not(.no-zoom)').forEach(m => {
       m.addEventListener('click', () => {
         const media = m.querySelector('img, video');
         if (media) open(media);
@@ -3161,6 +3320,41 @@
     closeBtn.addEventListener('click', close);
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && lb.classList.contains('open')) close();
+    });
+  })();
+
+  // ── Prototype modal: open the live ProtoPie embed in-page (no redirect).
+  //    The iframe is created on click and removed on close, so the heavy
+  //    player never loads or runs while you browse the deck. ──
+  (function() {
+    const modal = document.getElementById('proto-modal');
+    if (!modal) return;
+    const frame = modal.querySelector('.proto-frame');
+    const closeBtn = modal.querySelector('.lightbox-close');
+    function open(url) {
+      frame.innerHTML = '';
+      const ifr = document.createElement('iframe');
+      ifr.src = url;
+      ifr.allow = 'fullscreen; accelerometer; gyroscope; autoplay; clipboard-write';
+      ifr.setAttribute('allowfullscreen', '');
+      frame.appendChild(ifr);
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      frame.innerHTML = '';   // unload the iframe → stops the prototype
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('.proto-btn[href]').forEach(btn => {
+      btn.addEventListener('click', e => { e.preventDefault(); open(btn.href); });
+    });
+    modal.addEventListener('click', e => { if (e.target === modal) close(); });
+    closeBtn.addEventListener('click', close);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && modal.classList.contains('open')) close();
     });
   })();
 </script>
