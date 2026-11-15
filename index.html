@@ -9,60 +9,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600&amp;family=Geist+Mono:wght@400&amp;family=Inter:wght@400;500;600;700&amp;display=swap" onload="this.onload=null;this.rel='stylesheet'">
-  <script>
-    if (!location.hash && performance.getEntriesByType('navigation')[0]?.type !== 'back_forward') {
-      let showSplash = true;
-      try {
-        showSplash = !sessionStorage.getItem('portfolio:splash-seen');
-        if (showSplash) sessionStorage.setItem('portfolio:splash-seen', '1');
-      } catch {
-        // The intro can still play if session storage is unavailable.
-      }
-      if (showSplash) {
-        document.documentElement.classList.add('has-portfolio-splash');
-        setTimeout(() => document.documentElement.classList.remove('has-portfolio-splash'), 3000);
-      }
-    }
-  </script>
-  <link rel="stylesheet" href="portfolio.css?v=cover-note">
+  <link rel="stylesheet" href="portfolio.css?v=cover-reveal">
   <link rel="stylesheet" href="portfolio-footer.css?v=3">
   <link rel="stylesheet" href="portfolio-mobile.css?v=gallery">
-  <script defer src="portfolio-cover.js?v=cover-lines"></script>
+  <script defer src="portfolio-cover.js?v=cover-reveal"></script>
   <script defer src="portfolio-footer.js?v=compact"></script>
-  <script defer src="portfolio-mobile.js?v=mobile-navigation"></script>
+  <script defer src="portfolio-mobile.js?v=inline-previews"></script>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#work">Skip to selected work</a>
-  <div class="portfolio-splash" aria-hidden="true" hidden>
-    <div class="splash-backdrop"></div>
-    <div class="splash-stage">
-      <div class="splash-tile splash-playground playground-image">
-        <picture>
-          <source media="(max-width: 600px)" srcset="portfolio-images/mobile/figma-ai-playground.jpg">
-          <img src="portfolio-images/figma-ai-playground.png" alt="" fetchpriority="high">
-        </picture>
-      </div>
-      <div class="splash-tile splash-system design-system-image">
-        <picture>
-          <source media="(max-width: 600px)" srcset="portfolio-images/mobile/figma-design-system.jpg">
-          <img src="portfolio-images/figma-design-system.png" alt="">
-        </picture>
-      </div>
-      <div class="splash-tile splash-layerswap layerswap-image">
-        <picture>
-          <source media="(max-width: 600px)" srcset="portfolio-images/mobile/figma-layerswap.jpg">
-          <img src="portfolio-images/figma-layerswap.png" alt="">
-        </picture>
-      </div>
-      <div class="splash-tile splash-phone">
-        <picture>
-          <source media="(max-width: 600px)" srcset="portfolio-images/mobile/figma-font-after.jpg">
-          <img src="portfolio-images/figma-font-after.png" alt="">
-        </picture>
-      </div>
-    </div>
-  </div>
   <header class="portfolio-header" inert>
     <a class="wordmark" href="#top">Roupen’s Portfolio</a>
     <nav aria-label="Portfolio navigation">
@@ -108,7 +64,7 @@
               <div class="image-crop">
                 <picture>
                   <source media="(max-width: 600px)" srcset="portfolio-images/mobile/figma-ai-playground.jpg">
-                  <img src="portfolio-images/figma-ai-playground.png" alt="Picsart creation workspace with a prompt and quick-start presets">
+                  <img loading="lazy" decoding="async" src="portfolio-images/figma-ai-playground.png" alt="Picsart creation workspace with a prompt and quick-start presets">
                 </picture>
               </div>
             </div>
@@ -129,7 +85,7 @@
               <div class="image-crop">
                 <picture>
                   <source media="(max-width: 600px)" srcset="portfolio-images/mobile/figma-layerswap.jpg">
-                  <img src="portfolio-images/figma-layerswap.png" alt="Redesigned Layerswap transfer form">
+                  <img loading="lazy" decoding="async" src="portfolio-images/figma-layerswap.png" alt="Redesigned Layerswap transfer form">
                 </picture>
               </div>
             </div>
@@ -151,13 +107,13 @@
                 <div class="font-chooser-before">
                   <picture>
                     <source media="(max-width: 600px)" srcset="portfolio-images/mobile/figma-font-before.jpg">
-                    <img src="portfolio-images/figma-font-before.png" alt="Original Picsart font chooser">
+                    <img loading="lazy" decoding="async" src="portfolio-images/figma-font-before.png" alt="Original Picsart font chooser">
                   </picture>
                 </div>
                 <div class="font-chooser-after">
                   <picture>
                     <source media="(max-width: 600px)" srcset="portfolio-images/mobile/figma-font-after.jpg">
-                    <img src="portfolio-images/figma-font-after.png" alt="Redesigned Picsart font chooser">
+                    <img loading="lazy" decoding="async" src="portfolio-images/figma-font-after.png" alt="Redesigned Picsart font chooser">
                   </picture>
                 </div>
               </div>
@@ -184,7 +140,7 @@
               <div class="image-crop">
                 <picture>
                   <source media="(max-width: 600px)" srcset="portfolio-images/mobile/figma-design-system.jpg">
-                  <img src="portfolio-images/figma-design-system.png" alt="Collage of Picsart editor screens and components">
+                  <img loading="lazy" decoding="async" src="portfolio-images/figma-design-system.png" alt="Collage of Picsart editor screens and components">
                 </picture>
               </div>
             </div>
@@ -200,7 +156,7 @@
               <div class="image-crop">
                 <picture>
                   <source media="(max-width: 600px)" srcset="portfolio-images/mobile/figma-color-picker.jpg">
-                  <img src="portfolio-images/figma-color-picker.png" alt="Interactive color picker with a gradient, hue slider, and swatches">
+                  <img loading="lazy" decoding="async" src="portfolio-images/figma-color-picker.png" alt="Interactive color picker with a gradient, hue slider, and swatches">
                 </picture>
               </div>
             </div>

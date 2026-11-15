@@ -213,7 +213,7 @@
   width: var(--sidebar-expanded-width);
   margin-inline: calc((100% - var(--sidebar-expanded-width)) / 2);
 }
-.pg-sidebar-diagram.is-expanded .pg-sidebar-comparison-image { width: calc(229 / 280 * 100%); }
+.pg-sidebar-diagram.is-expanded .pg-sidebar-comparison .pg-sidebar-comparison-image { width: calc(229 / 280 * 100%); }
 .pg-sidebar-diagram.is-expanded .pg-sidebar-before {
   width: calc(228 / 280 * 100%);
   aspect-ratio: 228 / 597.686;
@@ -331,7 +331,7 @@
     gap: clamp(14px, 2.49vw, 24px);
     padding-top: 62px;
   }
-  .pg-sidebar-diagram.is-expanded .pg-sidebar-comparison-image { width: 100%; }
+  .pg-sidebar-diagram.is-expanded .pg-sidebar-comparison .pg-sidebar-comparison-image { width: 100%; }
   .pg-sidebar-diagram.is-expanded :is(.pg-sidebar-iteration-stack, .pg-sidebar-iteration-row) { display: contents; }
   .pg-sidebar-diagram.is-expanded .pg-sidebar-iterations { top: 0; }
 }

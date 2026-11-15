@@ -16,49 +16,29 @@ function usePortfolioStillPreviews() {
 
 function preparePortfolioMedia(root) {
   for (const image of root.querySelectorAll('img[src]')) {
-    if (!portfolioPhone.matches && !image.dataset.fullSrc) continue;
-    const original = new URL(image.dataset.fullSrc || image.getAttribute('src'), document.baseURI);
+    image.loading = 'lazy';
+    image.decoding = 'async';
+    if (image.dataset.fullSrc) continue;
+    const original = new URL(image.getAttribute('src'), document.baseURI);
     const name = original.pathname.split('/').pop();
     if (!portfolioMobileImages.has(name)) continue;
-    if (portfolioPhone.matches) {
-      image.dataset.fullSrc = original.href;
-      image.loading = 'lazy';
-      image.src = new URL('mobile/' + name.replace(/\.png$/, '.jpg'), original);
-    } else if (image.dataset.fullSrc) {
-      image.src = original;
-      delete image.dataset.fullSrc;
-    }
+    image.dataset.fullSrc = original.href;
+    image.src = new URL('mobile/' + name.replace(/\.png$/, '.jpg'), original);
   }
   for (const video of root.querySelectorAll('video')) {
-    if (portfolioPhone.matches === Boolean(video.dataset.fullSrc)) continue;
-    const src = video.dataset.fullSrc || video.getAttribute('src') || video.querySelector('source')?.getAttribute('src');
+    if (video.dataset.fullSrc) continue;
+    const src = video.getAttribute('src') || video.querySelector('source')?.getAttribute('src');
     if (!src) continue;
     const original = new URL(src, document.baseURI);
     const name = original.pathname.split('/').pop();
     if (!portfolioMobileVideos.has(name)) continue;
-
-    const wasPlaying = !video.paused;
-    if (portfolioPhone.matches) {
-      video.dataset.fullSrc = original.href;
-      video.dataset.desktopPoster = video.getAttribute('poster') || '';
-      video.poster = new URL('mobile/' + name.replace(/\.mp4$/, '.jpg'), original);
-      video.src = new URL('mobile/' + name, original);
-    } else {
-      video.src = original;
-      if (video.dataset.desktopPoster) video.poster = video.dataset.desktopPoster;
-      else video.removeAttribute('poster');
-      delete video.dataset.desktopPoster;
-      delete video.dataset.fullSrc;
-    }
-    if (wasPlaying && !usePortfolioStillPreviews()) video.play().catch(() => {});
+    video.removeAttribute('autoplay');
+    video.preload = 'none';
+    video.dataset.fullSrc = original.href;
+    video.poster = new URL('mobile/' + name.replace(/\.mp4$/, '.jpg'), original);
+    video.src = new URL('mobile/' + name, original);
   }
 }
-
-portfolioPhone.addEventListener('change', () => {
-  preparePortfolioMedia(document);
-  const deck = document.querySelector('.deck-details')?.shadowRoot;
-  if (deck) preparePortfolioMedia(deck);
-});
 
 document.addEventListener('DOMContentLoaded', () => {
   const mobileHeader = document.querySelector('.portfolio-header, .site-header');

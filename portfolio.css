@@ -135,7 +135,7 @@ a:focus-visible { outline: 2px solid var(--blue); outline-offset: 5px; }
   inset: 0;
   transition: transform var(--hover-transition);
 }
-:is(.project-image, .splash-tile) img {
+.project-image img {
   position: absolute;
   left: var(--image-left, 0);
   top: var(--image-top, 0);
@@ -187,7 +187,7 @@ a:focus-visible { outline: 2px solid var(--blue); outline-offset: 5px; }
   width: 24.266%;
   border-radius: 20px;
 }
-.font-chooser-after, .splash-phone {
+.font-chooser-after {
   --image-width: 119.5%;
   --image-height: 109.7%;
   --image-left: -10.13%;
@@ -346,87 +346,6 @@ html { scroll-behavior: smooth; }
   transform-origin: top left;
 }
 .cover-name-in-motion.is-moving { visibility: visible; }
-.portfolio-splash {
-  --splash-hold: 1s;
-  --splash-exit: 820ms;
-  position: fixed;
-  inset: 0;
-  z-index: 6;
-  overflow: hidden;
-  pointer-events: none;
-}
-.has-portfolio-splash .portfolio-splash { display: block; }
-.splash-backdrop {
-  position: absolute;
-  inset: 0;
-  background: var(--cover-background);
-}
-.splash-stage {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: min(100%, 175.61svh);
-  aspect-ratio: 1728 / 984;
-  translate: -50% -50%;
-}
-.splash-tile {
-  position: absolute;
-  overflow: hidden;
-  border-radius: clamp(12px, 1.16vw, 20px);
-}
-.splash-playground {
-  left: 33.10%;
-  top: 1.52%;
-  width: 52.37%;
-  aspect-ratio: 905 / 518;
-  --exit-x: 105vw;
-  --exit-y: -38vh;
-}
-.splash-system {
-  left: 9.55%;
-  top: 58.64%;
-  width: 25.87%;
-  aspect-ratio: 447 / 373;
-  --exit-x: -76vw;
-  --exit-y: 44vh;
-}
-.splash-layerswap {
-  left: 37.96%;
-  top: 58.64%;
-  width: 52.55%;
-  aspect-ratio: 908 / 523;
-  --exit-x: 50vw;
-  --exit-y: 96vh;
-}
-.splash-phone {
-  left: 11.75%;
-  top: -13.62%;
-  width: 18.81%;
-  aspect-ratio: 325 / 667;
-  --exit-x: -34vw;
-  --exit-y: -105vh;
-}
-.portfolio-splash.is-ready {
-  animation: splash-finish 0s linear calc(var(--splash-hold) + var(--splash-exit)) forwards;
-}
-.portfolio-splash.is-ready .splash-backdrop {
-  animation: splash-reveal 520ms ease-out var(--splash-hold) forwards;
-}
-.portfolio-splash.is-ready .splash-tile {
-  animation: splash-photo-exit var(--splash-exit) cubic-bezier(.55, .04, .3, 1) var(--splash-hold) forwards;
-}
-@keyframes splash-finish { to { visibility: hidden; } }
-@keyframes splash-reveal { to { opacity: 0; } }
-@keyframes splash-photo-exit { to { transform: translate(var(--exit-x), var(--exit-y)); } }
-
-@media (max-aspect-ratio: 1 / 1) {
-  .splash-stage { inset: 0; width: auto; aspect-ratio: auto; translate: none; }
-  .splash-phone { left: 7%; top: -5%; width: min(34%, 18svh); }
-  .splash-playground { left: 42%; top: 14%; width: min(88%, 45svh); }
-  .splash-system { left: -8%; top: 41%; width: min(64%, 36svh); }
-  .splash-layerswap { left: 24%; top: 73%; width: min(90%, 58svh); }
-}
-
 .portfolio-cover {
   min-height: 100svh;
   display: flex;
@@ -504,6 +423,20 @@ html { scroll-behavior: smooth; }
 .cover-jump a:hover { color: var(--link); border-color: var(--link); }
 .cover-jump span { line-height: 19.2px; }
 
+@media (prefers-reduced-motion: no-preference) {
+  html:not(:has(#work:target)) .portfolio-cover :is(#cover-name, .cover-role, .cover-description, .cover-meta, .cover-jump, .cover-note) {
+    animation: cover-reveal 290ms ease-out var(--reveal-delay, 0ms) backwards;
+  }
+  .cover-role { --reveal-delay: 45ms; }
+  .cover-description { --reveal-delay: 90ms; }
+  .cover-meta { --reveal-delay: 135ms; }
+  .cover-jump { --reveal-delay: 180ms; }
+  .cover-note { --reveal-delay: 225ms; }
+}
+@keyframes cover-reveal {
+  from { opacity: 0; transform: translateY(5px); }
+}
+
 @media (max-width: 760px) {
   .portfolio-header { align-items: flex-start; flex-direction: column; gap: 10px; padding-block: 12px; }
   .portfolio-header nav { width: 100%; justify-content: flex-start; overflow-x: auto; padding: 3px 4px 6px; }
@@ -515,6 +448,4 @@ html { scroll-behavior: smooth; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .portfolio-splash { --splash-exit: 0s; }
-  .portfolio-splash.is-ready :is(.splash-backdrop, .splash-tile) { animation: none; }
 }

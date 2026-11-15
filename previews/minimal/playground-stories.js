@@ -246,14 +246,10 @@ function showMinimalStory(host) {
       }
       article.dataset.chapter = id;
       const intro = `<h1 tabindex="-1">${story.chapterTitle || story.title}</h1><p class="pg-story-lead">${story.lead}${story.leadDetail ? `<span>${story.leadDetail}</span>` : ''}</p>`;
-      if (portfolioPhone.matches) {
-        const template = document.createElement('template');
-        template.innerHTML = intro + renderers[id](key === 'auto');
-        preparePortfolioMedia(template.content);
-        article.replaceChildren(template.content);
-      } else {
-        article.innerHTML = intro + renderers[id](key === 'auto');
-      }
+      const template = document.createElement('template');
+      template.innerHTML = intro + renderers[id](key === 'auto');
+      preparePortfolioMedia(template.content);
+      article.replaceChildren(template.content);
       if (id === 'navigate') setupPlaygroundSidebar(article);
       if (id === 'choose') setupPlaygroundModelPicker(article);
       const videos = article.querySelectorAll('button > video');

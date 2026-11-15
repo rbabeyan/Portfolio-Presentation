@@ -45,48 +45,9 @@ function schedulePosition() {
   if (!frame) frame = requestAnimationFrame(positionCoverName);
 }
 
-function playPortfolioSplash() {
-  const root = document.documentElement;
-  if (!root.classList.contains('has-portfolio-splash')) return;
-
-  const splash = document.querySelector('.portfolio-splash');
-  const listeners = new AbortController();
-  const { signal } = listeners;
-
-  function dismiss() {
-    root.classList.remove('has-portfolio-splash');
-    listeners.abort();
-  }
-
-  if (window.scrollY > 0) {
-    dismiss();
-    return;
-  }
-
-  window.addEventListener('scroll', dismiss, { passive: true, signal });
-  document.addEventListener('focusin', dismiss, { signal });
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape') dismiss();
-  }, { signal });
-  window.addEventListener('pageshow', event => {
-    if (event.persisted) dismiss();
-  }, { signal });
-  splash.addEventListener('animationend', event => {
-    if (event.target === splash) dismiss();
-  }, { signal });
-
-  const photos = [...splash.querySelectorAll('img')];
-  const decoded = Promise.allSettled(photos.map(photo => photo.decode?.()));
-  const waitLimit = new Promise(resolve => setTimeout(resolve, 400));
-  Promise.race([decoded, waitLimit]).then(() => {
-    if (!signal.aborted) splash.classList.add('is-ready');
-  });
-}
-
 window.addEventListener('scroll', schedulePosition, { passive: true });
 window.addEventListener('resize', schedulePosition);
 window.addEventListener('pageshow', schedulePosition);
 reducedMotion.addEventListener('change', schedulePosition);
 document.fonts?.ready.then(schedulePosition);
 positionCoverName();
-playPortfolioSplash();

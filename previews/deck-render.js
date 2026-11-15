@@ -135,13 +135,17 @@ function renderDeckDetails(host, projectId) {
   layoutStyle.rel = 'stylesheet';
   layoutStyle.href = deckLayoutURL;
   const details = document.createElement('div');
-  details.innerHTML = portfolioDeck.projects[projectId].join('');
+  const template = document.createElement('template');
+  template.innerHTML = portfolioDeck.projects[projectId].join('');
+  if (host.dataset.theme === 'minimal' && typeof preparePortfolioMedia === 'function') {
+    preparePortfolioMedia(template.content);
+  }
+  details.append(template.content);
   const chapters = [...details.querySelectorAll('.slide')];
   chapters.forEach((chapter, index) => { chapter.id = 'detail-' + (index + 1); });
   root.append(deckStyle, layoutStyle);
   if (host.dataset.theme === 'minimal') {
     adaptMinimalDeck(details, projectId);
-    if (typeof preparePortfolioMedia === 'function') preparePortfolioMedia(details);
     const theme = document.createElement('link');
     theme.rel = 'stylesheet';
     theme.href = minimalDeckThemeURL;

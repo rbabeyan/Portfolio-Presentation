@@ -202,11 +202,11 @@ function setupPlaygroundSidebar(article) {
     }
 
     moving = true;
-    const bounds = diagram.getBoundingClientRect();
+    const bounds = comparison.getBoundingClientRect();
     const from = movingElements.map(element => element.getBoundingClientRect());
     update();
 
-    const nextBounds = diagram.getBoundingClientRect();
+    const nextBounds = comparison.getBoundingClientRect();
     const options = { duration: 520, easing: 'cubic-bezier(.22, .75, .25, 1)' };
     const movements = movingElements.map((element, index) => {
       const to = element.getBoundingClientRect();
@@ -216,9 +216,6 @@ function setupPlaygroundSidebar(article) {
       const scaleY = from[index].height / to.height;
       return element.animate({ transform: [`translate(${x}px, ${y}px) scale(${scaleX}, ${scaleY})`, 'none'] }, options);
     });
-    if (Math.abs(bounds.height - nextBounds.height) > 1) {
-      movements.push(diagram.animate({ height: [`${bounds.height}px`, `${nextBounds.height}px`] }, options));
-    }
     await Promise.allSettled(movements.map(movement => movement.finished));
     moving = false;
     if (diagram.isConnected) keepToggleVisible();
