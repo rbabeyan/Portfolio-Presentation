@@ -171,6 +171,7 @@ function minimalPlaygroundCase() {
 
 function showMinimalStory(host) {
   let selectedButton;
+  let restoreFocus = true;
   let activeTransition;
   let disposeStory;
   const overview = host.querySelector('.pg-page-overview');
@@ -193,6 +194,12 @@ function showMinimalStory(host) {
     return: renderPlaygroundAllGenerations,
     choose: renderPlaygroundModelPicker,
   };
+
+  function highlightArea(id) {
+    overview.querySelectorAll('[data-playground-area]').forEach(button => {
+      button.classList.toggle('is-highlighted', Boolean(id) && button.dataset.playgroundArea === id);
+    });
+  }
 
   function updateChapterDock() {
     const title = article.querySelector('h1');
@@ -235,13 +242,14 @@ function showMinimalStory(host) {
       if (!candidate?.comingSoon && key !== location.hash.slice(1)) return;
       disposeStory?.();
       disposeStory = undefined;
+      highlightArea();
       overview.hidden = Boolean(story);
       detail.hidden = !story;
       if (!story) {
         article.replaceChildren();
         updateChapterDock();
         if (scrollToTop) window.scrollTo({ top: 0, behavior: 'instant' });
-        if (selectedButton) selectedButton.focus({ preventScroll: true });
+        if (restoreFocus && selectedButton) selectedButton.focus({ preventScroll: true });
         return;
       }
       article.dataset.chapter = id;
@@ -304,7 +312,7 @@ function showMinimalStory(host) {
 
   overview.querySelectorAll('[data-playground-area]').forEach(button => {
     const id = button.dataset.playgroundArea;
-    button.addEventListener('click', () => {
+    button.addEventListener('click', event => {
       if (id === 'credits') {
         creditsBlink?.cancel();
         const markerNotice = button.querySelector('.pg-phone-marker-status');
@@ -322,12 +330,22 @@ function showMinimalStory(host) {
         return;
       }
       selectedButton = button;
+      restoreFocus = event.detail === 0 || event.pointerType === 'mouse';
       navigate(id);
     });
-    const paired = [...overview.querySelectorAll(`[data-playground-area="${id}"]`)];
-    for (const [event, active] of [['pointerenter', true], ['pointerleave', false], ['focus', true], ['blur', false]]) {
-      button.addEventListener(event, () => paired.forEach(item => item.classList.toggle('is-highlighted', active)));
-    }
+    button.addEventListener('pointerenter', event => {
+      if (event.pointerType === 'mouse' && matchMedia('(hover: hover)').matches) highlightArea(id);
+    });
+    button.addEventListener('pointerleave', event => {
+      if (event.pointerType === 'mouse') highlightArea();
+    });
+    button.addEventListener('pointerdown', event => {
+      if (event.pointerType !== 'mouse') highlightArea();
+    });
+    button.addEventListener('focus', () => {
+      if (button.matches(':focus-visible')) highlightArea(id);
+    });
+    button.addEventListener('blur', () => highlightArea());
   });
   function backToOverview() {
     selectedButton ||= overview.querySelector(`.pg-annotation[data-playground-area="${article.dataset.chapter}"]`);

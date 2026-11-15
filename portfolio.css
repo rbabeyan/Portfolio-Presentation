@@ -262,10 +262,17 @@ a:focus-visible { outline: 2px solid var(--blue); outline-offset: 5px; }
 }
 .featured .project-link { margin-right: 12px; }
 .project h3 { transition: color var(--hover-transition); }
-.project:is(:hover, :focus-visible) { background: var(--card-hover); }
-.project:is(:hover, :focus-visible) .image-crop { transform: scale(1.02); }
-.project:is(:hover, :focus-visible) h3 { color: var(--blue); }
-.project:is(:hover, :focus-visible) .project-link { text-decoration: underline; text-underline-offset: 4px; }
+.project:focus-visible { background: var(--card-hover); }
+.project:focus-visible .image-crop { transform: scale(1.02); }
+.project:focus-visible h3 { color: var(--blue); }
+.project:focus-visible .project-link { text-decoration: underline; text-underline-offset: 4px; }
+
+@media (hover: hover) {
+  .project:hover { background: var(--card-hover); }
+  .project:hover .image-crop { transform: scale(1.02); }
+  .project:hover h3 { color: var(--blue); }
+  .project:hover .project-link { text-decoration: underline; text-underline-offset: 4px; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .project, .image-crop, .project h3 { transition: none; }

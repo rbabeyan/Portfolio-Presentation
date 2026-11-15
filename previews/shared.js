@@ -449,7 +449,7 @@ function showCase(project) {
   document.title = project.title + ' — Roupen Babian';
   const next = projects[(projects.indexOf(project) + 1) % projects.length];
   const isPlayground = project.id === 'ai-playground';
-  const showCaseNavigation = !isMinimalDirection || !['layerswap', 'font-chooser'].includes(project.id);
+  const showCaseNavigation = !isMinimalDirection;
   casePage.classList.toggle('pg-case', isPlayground);
   casePage.innerHTML = isPlayground ? playgroundCase(project, next) : `
     ${showCaseNavigation ? `<div class="deck-case-nav">

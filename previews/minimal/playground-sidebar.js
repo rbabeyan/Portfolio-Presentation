@@ -108,10 +108,15 @@ function openSidebarIterations(article, trigger, reducedMotion) {
   dialog.innerHTML = `
     <header><h2>Sidebar design iterations</h2><button type="button" aria-label="Close iterations" autofocus>×</button></header>
     <div class="pg-sidebar-gallery-track" aria-label="Swipe through the iterations">
-      ${[4, 1, 2, 3, 4, 1].map((number, index) => `
-        <figure data-number="${number}" ${index === 0 || index === 5 ? 'aria-hidden="true"' : ''}>
-          <img src="./chapter-media/sidebar-iteration-${number}.png" alt="Sidebar design iteration ${number}">
-        </figure>`).join('')}
+      ${['before', 1, 2, 3, 4, 'after'].map(version => {
+        const endpoint = typeof version === 'string';
+        const label = version === 'before' ? 'Before · Oldest version' :
+          version === 'after' ? 'After · Final version' : `Iteration ${version} of 4`;
+        const file = endpoint ? `sidebar-${version}` : `sidebar-iteration-${version}`;
+        return `<figure data-number="${version}" data-label="${label}">
+          <img src="./chapter-media/${file}.png" alt="${label}">
+        </figure>`;
+      }).join('')}
     </div>
     <div class="pg-sidebar-gallery-controls">
       <button type="button" aria-label="Previous iteration">←</button>
@@ -123,31 +128,34 @@ function openSidebarIterations(article, trigger, reducedMotion) {
   const slides = [...track.children];
   const status = dialog.querySelector('[role="status"]');
   const center = slide => slide.offsetLeft - (track.clientWidth - slide.offsetWidth) / 2;
-  let index = 1;
+  const previous = dialog.querySelector('[aria-label="Previous iteration"]');
+  const nextButton = dialog.querySelector('[aria-label="Next iteration"]');
+  let index = 0;
   let settleTimer;
   function select(next, behavior = 'instant') {
     index = next;
     slides.forEach((slide, position) => slide.classList.toggle('is-current', position === index));
-    status.textContent = `Iteration ${slides[index].dataset.number} of 4`;
+    status.textContent = slides[index].dataset.label;
+    previous.disabled = index === 0;
+    nextButton.disabled = index === slides.length - 1;
     track.scrollTo({ left: center(slides[index]), behavior });
   }
   function settle() {
     if (!dialog.open) return;
     const nearest = slides.reduce((best, slide, position) =>
       Math.abs(center(slide) - track.scrollLeft) < Math.abs(center(slides[best]) - track.scrollLeft) ? position : best, 0);
-    select(nearest === 0 ? 4 : nearest === 5 ? 1 : nearest);
+    select(nearest);
   }
   track.addEventListener('scroll', () => {
     clearTimeout(settleTimer);
     settleTimer = setTimeout(settle, 140);
   }, { passive: true });
   const step = direction => {
-    const current = index === 0 ? 4 : index === 5 ? 1 : index;
-    if (current !== index) select(current);
-    select(current + direction, reducedMotion.matches ? 'instant' : 'smooth');
+    const next = index + direction;
+    if (next >= 0 && next < slides.length) select(next, reducedMotion.matches ? 'instant' : 'smooth');
   };
-  dialog.querySelector('[aria-label="Previous iteration"]').addEventListener('click', () => step(-1));
-  dialog.querySelector('[aria-label="Next iteration"]').addEventListener('click', () => step(1));
+  previous.addEventListener('click', () => step(-1));
+  nextButton.addEventListener('click', () => step(1));
   dialog.addEventListener('keydown', event => {
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
     event.preventDefault();
@@ -161,7 +169,7 @@ function openSidebarIterations(article, trigger, reducedMotion) {
   dialog.openGallery = () => {
     if (dialog.open) return;
     dialog.showModal();
-    select(1);
+    select(0);
   };
   dialog.openGallery();
 }

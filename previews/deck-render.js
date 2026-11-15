@@ -196,11 +196,17 @@ function renderDeckDetails(host, projectId) {
     }
     if (media.tagName === 'VIDEO') {
       media.removeAttribute('autoplay');
-      keepVideoSilent(media);
+      const allowSound = projectId === 'design-system';
+      if (allowSound) {
+        media.defaultMuted = true;
+        media.muted = true;
+      } else {
+        keepVideoSilent(media);
+        media.closest('.media')?.classList.remove('no-zoom');
+      }
       media.loop = true;
       media.preload = 'none';
-      media.controls = false;
-      media.closest('.media')?.classList.remove('no-zoom');
+      media.controls = allowSound;
       media.querySelectorAll('source').forEach(source => {
         source.addEventListener('error', () => replaceMedia(media), { once: true });
       });

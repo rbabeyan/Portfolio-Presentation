@@ -5,7 +5,7 @@ const portfolioMobileImages = new Set([
   'ChooserScreen.png', 'SlippageFlow.png', 'SortingLogic.png',
 ]);
 const portfolioMobileVideos = new Set([
-  'all-generations-list.mp4', 'model-auto-picking.mp4', 'model-dropdown.mp4', 'model-smart-search.mp4',
+  'all-generations-list.mp4', 'model-auto-picking.mp4', 'model-dropdown-v2.mp4', 'model-smart-search.mp4',
   'InteractiveSearch.mp4', 'MinMaxBehavior.mp4', 'MultiWallets.mp4', 'ResponsicePicker.mp4',
   'TransactionHistory.mp4', 'color-picker-prototype.mp4', 'font-chooser-prototype.mp4',
 ]);

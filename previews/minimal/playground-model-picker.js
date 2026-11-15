@@ -5,7 +5,7 @@ function renderPlaygroundModelPicker(autoExpanded = false) {
       title: 'Dropdown picker',
       audience: 'For users who know what they want (desktop only)',
       description: 'A compact list that opens right above the composer when you click the model chip. It puts your recent and most-used models within reach, so switching takes one click and you never leave the board. The full picker is still one click away when you want to browse.',
-      video: 'model-dropdown.mp4',
+      video: 'model-dropdown-v2.mp4',
       notes: [
         ['Quick switching', 'Clicking the model chip opens a compact dropdown above the composer, so there’s no full-screen modal for a quick change.'],
         ['What you need first', 'Recent and most-used models sit at the top, followed by Featured and Recommended.'],

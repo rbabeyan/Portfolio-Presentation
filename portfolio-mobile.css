@@ -128,10 +128,10 @@
   .project, .project.compact { display: flex; flex-direction: column; gap: 0; border-radius: 16px; }
   .project .project-image { align-self: stretch; aspect-ratio: 16 / 9; border-radius: 12px; }
   .project .project-copy { padding: 13px 5px 5px; }
-  .project h3 { order: -2; margin-bottom: 5px; font-size: 24px; }
-  .project-copy p:not(.category) { order: -1; font-size: 15px; line-height: 1.45; }
+  .project h3 { margin-bottom: 5px; font-size: 24px; }
+  .project-copy p:not(.category) { font-size: 15px; line-height: 1.45; }
   .project .category {
-    margin: 10px 0 0;
+    margin: 0 0 6px;
     color: var(--muted);
     font-size: 11px;
     line-height: 1.35;
@@ -139,7 +139,6 @@
   }
   .project .details { margin-top: 6px; font-size: 11px; line-height: 1.45; }
   .project .project-link { align-self: flex-start; margin: 0; padding-top: 11px; font-size: 13px; }
-  .project:active { background: var(--card-hover); }
   .project .layerswap-image img { transform: scale(1.64); transform-origin: 50% 30%; }
   .compact .project-image img {
     inset: 0;
@@ -367,3 +366,7 @@ html:has(.pg-sidebar-gallery[open]) { overflow: hidden; }
 @keyframes mobile-chapter-back-in {
   from { opacity: 0; transform: translateY(4px); }
 }
+
+.pg-sidebar-gallery button:disabled { opacity: .35; }
+.pg-sidebar-gallery-track [data-number="before"] { position: relative; }
+.pg-sidebar-gallery-track [data-number="before"] img { position: absolute; top: -10.29%; left: 0; width: 664.38%; max-width: none; height: 151.52%; object-fit: fill; }
