@@ -1,0 +1,55 @@
+.portfolio-footer {
+  margin-block-start: 100px;
+  background: var(--paper, var(--background));
+  color: #fff;
+  font: 400 14px/17px Inter, system-ui, sans-serif;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.portfolio-footer-inner {
+  position: relative;
+  width: var(--case-content-width, min(1568px, 100% - 2 * var(--page-inset)));
+  margin-inline: auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 24px 20px;
+  border-top: 1px solid #303030;
+}
+.portfolio-footer-contact, .portfolio-footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+.portfolio-footer-links { align-items: flex-end; }
+.portfolio-footer h2 { font: inherit; margin: 0; }
+.portfolio-footer :is(button, a) {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-decoration: none;
+  text-align: start;
+}
+.portfolio-footer button:not(:disabled) { cursor: pointer; user-select: text; }
+.portfolio-footer :is(button:not(:disabled), a):hover { color: var(--case-accent, var(--blue)); }
+.portfolio-footer button:focus-visible { outline: 2px solid var(--case-accent, var(--blue)); outline-offset: 4px; }
+.portfolio-footer button:disabled { color: var(--muted); }
+.portfolio-footer-feedback:not(:empty) {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 8px);
+  padding: 8px 12px;
+  border: 1px solid #303030;
+  border-radius: 8px;
+  background: var(--paper, var(--background));
+}
+@media (max-width: 420px), (max-height: 600px) {
+  .portfolio-footer-inner { padding-block: 12px; }
+  .portfolio-footer-contact, .portfolio-footer-links { gap: 7px; }
+  .portfolio-footer { font-size: 12px; }
+}

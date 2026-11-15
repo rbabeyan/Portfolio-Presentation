@@ -1,0 +1,94 @@
+.pg-secondary-copy { max-width: 76ch; }
+
+.pg-secondary-evidence,
+.pg-credits-nudge {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 3vw, 48px);
+}
+
+.pg-secondary-evidence { margin-top: clamp(24px, 2.55vw, 44px); }
+
+.pg-secondary-evidence img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  border-radius: var(--case-card-radius);
+}
+
+.pg-history-video {
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: var(--case-card-radius);
+}
+.pg-history-video video { display: block; width: 100%; height: auto; }
+.pg-history-video span { border-radius: 8px; }
+
+:is(.pg-secondary-evidence, .pg-credits-nudge) figcaption {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.pg-credits-nudge {
+  align-items: start;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  max-width: 1120px;
+}
+
+.pg-credits-list {
+  margin: 16px 0;
+  padding-inline-start: 24px;
+}
+.pg-credits-list li + li { margin-top: 12px; }
+
+.pg-credits-table-wrap {
+  max-width: 1120px;
+  margin-top: clamp(24px, 2.55vw, 44px);
+  overflow-x: auto;
+  border: 1px solid var(--rule);
+  border-radius: var(--case-card-radius);
+}
+.pg-credits-table-wrap:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.pg-credits-table {
+  width: 100%;
+  min-width: 660px;
+  border-collapse: collapse;
+  text-align: start;
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.4;
+}
+.pg-credits-table :is(th, td) {
+  padding: 14px 16px;
+  text-align: start;
+  vertical-align: top;
+}
+.pg-credits-table th { color: var(--ink); }
+.pg-credits-table thead { background: var(--pg-card-fill); }
+.pg-credits-table tbody tr { border-top: 1px solid var(--rule); }
+
+.pg-credits-nudge figure { width: min(100%, 400px); }
+
+.pg-credits-crop {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 560 / 344;
+  border-radius: var(--case-card-radius);
+}
+
+.pg-credits-crop img {
+  position: absolute;
+  inset: -376.74% auto auto 0;
+  width: 540%;
+  height: 501.16%;
+  max-width: none;
+}
+
+@media (max-width: 720px) {
+  .pg-secondary-evidence,
+  .pg-credits-nudge { grid-template-columns: minmax(0, 1fr); }
+}

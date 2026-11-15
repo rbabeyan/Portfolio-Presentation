@@ -1,0 +1,157 @@
+.case-items, .case-links {
+  margin-block: 1rem;
+  padding-inline-start: 1.25rem;
+}
+.case-items li + li, .case-links li + li { margin-top: .4rem; }
+.case-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+  gap: 1rem;
+  margin-block: 1.25rem;
+}
+.case-stats > div {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  padding-block: .65rem;
+  border-top: 1px solid var(--rule, var(--line, #555));
+}
+.case-stats dt { color: var(--muted, #bbb); font-size: .85rem; }
+.case-stats dd { margin: 0; font-size: clamp(1.35rem, 3vw, 2.25rem); font-weight: 600; }
+.case-media video { display: block; width: 100%; max-height: 520px; background: #141414; }
+.case-media-unavailable {
+  padding: 1rem;
+  color: var(--muted, #bbb);
+  font-size: .85rem;
+}
+.deck-case-nav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 24px; }
+.deck-contents summary { cursor: pointer; }
+.deck-contents ol { padding-inline-start: 1.25rem; }
+.deck-contents li + li { margin-top: .3rem; }
+.deck-details + .case-footer { margin-block: 32px 56px; }
+
+.project-image-trigger { cursor: zoom-in; }
+.project-image-trigger:focus-visible {
+  outline: 2px solid var(--accent, #96bfff);
+  outline-offset: 4px;
+}
+html:has(.project-image-dialog[open]) { overflow: hidden; }
+.project-image-dialog[open] {
+  --viewer-top: calc(68px + env(safe-area-inset-top, 0px));
+  --viewer-bottom: max(16px, env(safe-area-inset-bottom, 0px));
+  --viewer-height: calc(100dvh - var(--viewer-top) - var(--viewer-bottom));
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: var(--viewer-top) clamp(12px, 2vw, 32px) var(--viewer-bottom);
+  overflow: hidden;
+  border: 0;
+  color: #fff;
+  background: transparent;
+}
+.project-image-dialog::backdrop { background: rgb(0 0 0 / 94%); }
+.project-image-stage {
+  position: relative;
+  width: min(100%, calc(var(--viewer-height) * var(--image-ratio, 1)));
+  aspect-ratio: var(--image-ratio, 1);
+  overflow: hidden;
+}
+.project-image-stage > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.project-image-stage > .project-image-crop {
+  position: absolute;
+  max-width: none;
+  object-fit: fill;
+}
+.project-image-dialog.is-video .project-image-stage {
+  --video-controls-height: 54px;
+  --video-controls-gap: 8px;
+  --video-height: max(0px, var(--viewer-height) - var(--video-controls-height) - var(--video-controls-gap));
+  --video-width: calc(var(--video-height) * var(--image-ratio, 1.7778));
+  display: grid;
+  justify-items: center;
+  gap: var(--video-controls-gap);
+  width: min(100%, max(260px, var(--video-width)));
+  aspect-ratio: auto;
+  overflow: visible;
+}
+.project-image-stage > video {
+  display: block;
+  width: min(100%, var(--video-width));
+  aspect-ratio: var(--image-ratio, 1.7778);
+  object-fit: contain;
+  background: #000;
+}
+.project-video-controls {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(8px, 2vw, 16px);
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--video-controls-height);
+  padding: 4px clamp(8px, 2vw, 12px);
+  border: 1px solid #393939;
+  border-radius: 12px;
+  background: #191919;
+  color: #fff;
+  font: 0.875rem/1 system-ui, sans-serif;
+}
+.project-video-controls button {
+  min-width: 64px;
+  min-height: 44px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.project-video-controls button:hover { background: #303030; }
+.project-video-controls input[type="range"] {
+  width: 100%;
+  min-width: 0;
+  height: 36px;
+  margin: 0;
+  accent-color: var(--accent, #96bfff);
+}
+.project-video-controls :is(button, input):focus-visible {
+  outline: 2px solid var(--accent, #96bfff);
+  outline-offset: 2px;
+}
+.project-video-time {
+  color: #d2d2d2;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.project-image-close {
+  position: absolute;
+  z-index: 1;
+  top: calc(12px + env(safe-area-inset-top, 0px));
+  right: calc(12px + env(safe-area-inset-right, 0px));
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid #555;
+  border-radius: 50%;
+  background: #222;
+  color: inherit;
+  font: 400 1.65rem/1 system-ui, sans-serif;
+  cursor: pointer;
+}
+.project-image-close:is(:hover, :focus-visible) { border-color: #fff; }

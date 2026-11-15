@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Selected product design work by Roupen Babian.">
+  <meta name="theme-color" content="#0e0f11">
+  <title>Roupen Babian · Product Designer</title>
+  <script>
+    if (!new URLSearchParams(location.search).has('project')) {
+      location.replace('../../index.html' + location.hash);
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
+  <link rel="stylesheet" href="../playground.css">
+  <link rel="stylesheet" href="style.css?v=docked-chapters">
+  <link rel="stylesheet" href="playground-v3.css?v=footer-spacing">
+  <link rel="stylesheet" href="playground-sidebar.css?v=sidebar-figma-sizing">
+  <link rel="stylesheet" href="playground-model-picker.css?v=case-edits">
+  <link rel="stylesheet" href="playground-secondary-stories.css?v=case-edits">
+  <link rel="stylesheet" href="../case-content.css?v=video-viewer">
+  <link rel="stylesheet" href="../../portfolio-footer.css?v=3">
+  <link rel="stylesheet" href="../../portfolio-mobile.css?v=gallery">
+  <script defer src="../../portfolio-mobile.js?v=mobile-navigation"></script>
+  <script defer src="../../portfolio-footer.js?v=compact"></script>
+  <script defer src="../layerswap.js"></script>
+  <script defer src="../picsart-tools.js"></script>
+  <script defer src="../design-system.js"></script>
+  <script defer src="../deck-content.js?v=prototype-recordings"></script>
+  <script defer src="../deck-interactions.js?v=mobile"></script>
+  <script defer src="../deck-render.js?v=process-rows"></script>
+  <script defer src="playground-sidebar.js?v=gallery"></script>
+  <script defer src="playground-model-picker.js?v=case-edits"></script>
+  <script defer src="playground-secondary-stories.js?v=case-edits"></script>
+  <script defer src="playground-stories.js?v=mobile-navigation"></script>
+  <script defer src="../shared.js?v=mobile-media"></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body data-direction="minimal">
+  <a class="skip-link" href="#content">Skip to content</a>
+  <div class="site-header-bar">
+    <header class="site-header wrap">
+      <a class="wordmark" href="../../index.html">Roupen’s Portfolio</a>
+      <nav aria-label="Main navigation">
+        <a class="pg-work-link" href="../../index.html#work">Selected work</a>
+        <a href="./index.html?project=ai-playground">AI Playground</a>
+        <a href="./index.html?project=layerswap">Layerswap Redesign</a>
+        <a href="./index.html?project=font-chooser">Font Chooser</a>
+        <a href="./index.html?project=design-system">Design System</a>
+        <a href="./index.html?project=color-picker">Prototyping</a>
+      </nav>
+    </header>
+  </div>
+
+  <div id="content" tabindex="-1">
+    <main class="wrap" id="home">
+      <section class="intro" aria-labelledby="intro-title">
+        <h1 id="intro-title">Senior product designer.</h1>
+        <p>I design workflows for complex products, from creating with AI to moving assets between blockchains.</p>
+      </section>
+
+      <section id="work" aria-labelledby="work-title">
+        <h2 id="work-title">Selected work</h2>
+        <div id="project-grid"></div>
+        <noscript><p><a href="../../playground-deck/index.html">Browse the portfolio deck</a></p></noscript>
+      </section>
+
+      <section id="about" aria-labelledby="about-title">
+        <h2 id="about-title">About</h2>
+        <p>I’m Roupen Babian, a product designer based in Yerevan, Armenia. My work at Picsart spans AI creation, editor tools, and the design system.</p>
+      </section>
+    </main>
+
+    <main class="wrap" id="case" hidden></main>
+  </div>
+
+  <footer class="portfolio-footer" id="contact"></footer>
+</body>
+</html>
